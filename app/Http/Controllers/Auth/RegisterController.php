@@ -91,7 +91,7 @@ class RegisterController extends Controller
             'mobile' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'referee' => ['nullable', 'string', 'max:255'],
+            'referee' => ['nullable', 'string', 'max:255', 'exists:users,referral_code'],
             'mode_of_payment' => ['required', 'string', 'max:255'],
         ]);
     }
@@ -124,6 +124,9 @@ class RegisterController extends Controller
             'mode_of_payment' => $data['mode_of_payment'],
             'password' => Hash::make($data['password']),
         ]);
+
+        // assign name to email template
+        $data['name'] = $data['first_name'].' '.$data['last_name'];
 
         // Send Email to registered User
         Mail::send('emails.members.registration-complete', $data, static function ($message) use ($data, $user) {

@@ -28,11 +28,11 @@ class RedirectIfAuthenticated
 //        }
 
         if ($guard === "admin" && Auth::guard($guard)->check()) {
-            return redirect()->route('admin-dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
         if (Auth::guard($guard)->check()) {
-            return redirect()->route('user-dashboard');
+            return redirect()->route('member.dashboard');
         }
 
         return $next($request);

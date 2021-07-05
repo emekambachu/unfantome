@@ -21,6 +21,7 @@ class User extends Authenticatable
         'email',
         'mobile',
         'referee',
+        'referral_code',
         'mode_of_payment',
         'password',
         'image',

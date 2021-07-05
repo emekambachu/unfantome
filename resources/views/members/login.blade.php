@@ -31,18 +31,20 @@
                             <form class="login-signup-form" method="post" action="{{ route('login') }}">
                                 @csrf
                                 <div class="row">
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">
-                                                Email Address
-                                            </label>
+                                                Email Address</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
                                                     <i class="ti-email"></i>
                                                 </div>
-                                                <input type="email" class="form-control" placeholder="name@address.com" required>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                       value="{{ old('email') }}" placeholder="name@address.com"
+                                                       autocomplete="email" autofocus required>
                                             </div>
                                         </div>
                                     </div>
@@ -58,17 +60,19 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <input type="password" class="form-control" placeholder="Enter your password">
+                                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                                       placeholder="Enter your password" autocomplete="current-password" required>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <!-- Submit -->
-                                        <button class="btn btn-block btn-secondary border-radius mt-4 mb-3">
+                                        <button type="submit" class="btn btn-block btn-secondary border-radius mt-4 mb-3">
                                             Login
                                         </button>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

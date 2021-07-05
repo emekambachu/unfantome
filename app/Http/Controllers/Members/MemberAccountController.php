@@ -29,11 +29,16 @@ class MemberAccountController extends Controller
 
     public function makePayment(){
 
-        return view('members.account.dashboard');
+        return view('members.account.make-payment');
     }
 
     public function marketPlace(){
 
-        return view('members.account.dashboard');
+        return view('members.account.market-place.index');
+    }
+
+    public function accountSetting(){
+
+        return view('members.account.account-settings');
     }
 }

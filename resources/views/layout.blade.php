@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!--favicon icon-->
-    <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png" sizes="16x16">
+    <link rel="icon" href="{{ asset('images/unfantome_logoonly.png') }}" type="image/png" sizes="16x16">
 
     <!--title-->
     <title>@yield('title') - Unfantome</title>

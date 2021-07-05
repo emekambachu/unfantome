@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('members.account.layout')
 
 @section('title')
     Dashboard

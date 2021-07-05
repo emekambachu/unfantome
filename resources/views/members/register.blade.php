@@ -26,6 +26,8 @@
                                 <h3>Create Account</h3>
                             </div>
 
+                            @include('includes.alerts')
+
                             <!--sign up form-->
                             <form class="login-signup-form" method="post" action="{{ route('register') }}">
                                 @csrf
@@ -43,10 +45,11 @@
                                                 </div>
                                                 <input type="text" name="first_name"
                                                        class="form-control @error('first_name') is-invalid @enderror"
-                                                       placeholder="First Name" required>
+                                                       placeholder="First Name" value="{{ old('first_name') }}" required>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
@@ -60,7 +63,7 @@
                                                 </div>
                                                 <input type="text" name="last_name"
                                                        class="form-control @error('last_name') is-invalid @enderror"
-                                                       placeholder="Last Name" required>
+                                                       placeholder="Last Name" value="{{ old('last_name') }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -76,8 +79,9 @@
                                                 <div class="input-icon">
                                                     <i class="ti-email"></i>
                                                 </div>
-                                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                                       placeholder="name@address.com" required>
+                                                <input type="email" name="email"
+                                                       class="form-control @error('email') is-invalid @enderror"
+                                                       placeholder="name@address.com" value="{{ old('email') }}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +89,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
-                                            <label class="font-weight-bold">Mobile</label>
+                                            <label class="font-weight-bold">Mobile (Optional)</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
@@ -93,7 +97,7 @@
                                                 </div>
                                                 <input type="text" name="mobile"
                                                        class="form-control @error('mobile') is-invalid @enderror"
-                                                       placeholder="Mobile number" required>
+                                                       placeholder="Mobile number" value="{{ old('mobile') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +105,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
-                                            <label class="font-weight-bold">Referee (Include referee code)</label>
+                                            <label class="font-weight-bold">Referee (Include referee code, Optional)</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
@@ -109,7 +113,7 @@
                                                 </div>
                                                 <input type="text" name="referee"
                                                        class="form-control @error('referee') is-invalid @enderror"
-                                                       placeholder="Referee">
+                                                       placeholder="Referee" value="{{ old('referee') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +151,7 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <input type="password"
+                                                <input type="password" name="password"
                                                        class="form-control @error('password') is-invalid @enderror"
                                                        placeholder="Enter your password">
                                             </div>
@@ -164,7 +168,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <input type="password" name="password_confirm" class="form-control">
+                                                <input type="password" name="password_confirmation"
+                                                       autocomplete="new-password" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
@@ -181,7 +186,7 @@
                                         </div>
 
                                         <!-- Submit -->
-                                        <button class="btn btn-block btn-secondary border-radius mt-4 mb-3">
+                                        <button type="submit" class="btn btn-block btn-secondary border-radius mt-4 mb-3">
                                             Sign up</button>
                                     </div>
 

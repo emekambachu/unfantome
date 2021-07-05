@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('mobile')->nullable();
             $table->string('referee')->nullable();
+            $table->string('referral_code');
             $table->string('mode_of_payment');
             $table->string('password');
             $table->text('image')->nullable();
