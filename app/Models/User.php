@@ -23,6 +23,7 @@ class User extends Authenticatable
         'referee',
         'mode_of_payment',
         'password',
+        'image',
     ];
 
     /**
@@ -31,6 +32,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
+        'verification_token',
+        'approved',
         'password',
         'remember_token',
     ];

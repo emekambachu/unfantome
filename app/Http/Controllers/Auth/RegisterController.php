@@ -65,7 +65,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::LOGIN;
 
     /**
      * Create a new controller instance.
@@ -91,6 +91,8 @@ class RegisterController extends Controller
             'mobile' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'referee' => ['nullable', 'string', 'max:255'],
+            'mode_of_payment' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -102,19 +104,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data){
 
+        //Generate Ref for user slug
+        function referralCode($length = 5){
+            $characters = '0123456789';
+            $charactersLength = strlen($characters);
+            $randomString = '';
+            for ($i = 0; $i < $length; $i++) {
+                $randomString .= $characters[random_int(0, $charactersLength - 1)];
+            }
+            return $randomString;
+        }
+
         $user = User::create([
             'name' => $data['first_name'].' '.$data['last_name'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
             'referee' => $data['referee'],
+            'referral_code' => $data['first_name'].$data['last_name'].referralCode(),
             'mode_of_payment' => $data['mode_of_payment'],
             'password' => Hash::make($data['password']),
         ]);
 
         // Send Email to registered User
-        Mail::send('emails.members.registration-complete', $data, static function ($message) use ($data) {
+        Mail::send('emails.members.registration-complete', $data, static function ($message) use ($data, $user) {
             $message->from('info@unfantome.com', 'Unfantome');
-            $message->to($data['email'], $data['name']);
+            $message->to($data['email'], $user->name);
             $message->replyTo('info@unfantome.com', 'Unfantome');
             $message->subject('Registration Complete');
         });

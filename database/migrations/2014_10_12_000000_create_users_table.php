@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('referee')->nullable();
             $table->string('mode_of_payment');
             $table->string('password');
+            $table->text('image')->nullable();
+            $table->string('verification_token')->nullable();
+            $table->tinyInteger('approved')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

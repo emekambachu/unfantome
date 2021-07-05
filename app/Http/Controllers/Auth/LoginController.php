@@ -102,8 +102,7 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    protected function credentials(Request $request)
-    {
+    protected function credentials(Request $request){
 //        return $request->only($this->username(), 'password');
         if (is_numeric($request->get('email'))) {
             return ['mobile'=>$request->get('email'),'password'=>$request->get('password')];
@@ -112,6 +111,7 @@ class LoginController extends Controller
         if(filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
             return ['email' => $request->get('email'), 'password'=>$request->get('password')];
         }
+
         return ['username' => $request->get('email'), 'password'=>$request->get('password')];
     }
 
@@ -193,7 +193,7 @@ class LoginController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect()->route('login-form');
     }
 
     /**
@@ -201,7 +201,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::DASHBOARD;
 
     /**
      * Create a new controller instance.

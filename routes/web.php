@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\GithubDeploymentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,8 +48,5 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 // Admin
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login-form');
 Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
-
-//Github Deployment
-Route::post('github/deploy', [GithubDeploymentController::class, 'deploy']);
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
