@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\GithubDeploymentController;
 use App\Http\Controllers\Members\MemberAccountController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,4 +59,5 @@ Route::get('member/account-setting', [MemberAccountController::class, 'accountSe
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login-form');
 Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Github Deployment
+Route::post('github/deploy', [GithubDeploymentController::class, 'deploy']);
