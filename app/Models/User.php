@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'mobile',
+        'referee',
         'mode_of_payment',
         'password',
     ];

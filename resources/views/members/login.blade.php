@@ -31,7 +31,7 @@
                             <form class="login-signup-form" method="post" action="{{ route('login') }}">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">
@@ -52,8 +52,7 @@
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">
-                                                Password
-                                            </label>
+                                                Password</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">

@@ -7,54 +7,34 @@
 @section('content')
     <!--hero section start-->
     <section class="section section-xl pt-9 pb-9 section-header text-white gradient-overly-right-color"
-             style="background-image: url('{{ asset('assets/img/hero-bg5.jpg') }}')">
+             style="background-image: url('{{ asset('images/slide/slide1.jpg') }}')">
         <div class="container">
             <div class="row">
                 <div class="owl-carousel owl-theme hero-content-slider custom-dot custom-dot-2">
                     <div class="item">
                         <div class="col-md-8 col-lg-7 col-12">
                             <div class="hero-content-wrap">
-                                <h1 class="display-2">Build Fast, Launch Quickly</h1>
-                                <p class="lead">Completely harness extensive testing procedures via ubiquitous processes. Globally envisioneer cross </p>
-                                <ul class="list-unstyled tech-feature-list text-white">
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Accounting</strong> Procedures Guidebook</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Cost</strong> Accounting Fundamentals</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Corporate</strong> Cash Management</li>
-                                </ul>
+                                <h1 class="display-2">Unfantome</h1>
+                                <p class="lead">Unnfantome is a community! A community that is bound with the saying “Givers never lack”.</p>
                                 <div class="action-btns pt-3">
-                                    <a href="#" class="btn btn-secondary mr-3">Check Prices</a>
-                                    <a href="#" class="btn btn-outline-light">Learn More</a>
+                                    <a href="{{ url('about') }}" class="btn btn-secondary mr-3">About us</a>
+                                    <a href="{{ route('register-form') }}" class="btn btn-outline-light">Sign up</a>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="item">
                         <div class="col-md-8 col-lg-7 col-12">
                             <div class="hero-content-wrap position-relative z-index">
-                                <h1 class="display-2">Your Most Trusted Business Partner</h1>
-                                <p class="lead">Holisticly procrastinate mission-critical convergence with reliable customer service. Assertively underwhelm idea-sharing for impactful solutions. </p>
+                                <h1 class="display-2">Creating financial stability </h1>
+                                <p class="lead">The idea of the Fantome community is for people to know each other, sell their products and help themselves grow financially.</p>
 
-                                <a href="#" class="btn btn-secondary mt-3">Get Start Now</a>
+                                <a href="{{ route('register-form') }}" class="btn btn-outline-light">Sign up</a>
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="col-md-8 col-lg-7 col-12">
-                            <div class="hero-content-wrap text-white">
-                                <h1 class="display-2">We are Creative Digital Agency</h1>
-                                <p class="lead">If your WordPress website is your personal business, we
-                                    want you to succeed. We made our Hostlar hosting platform.</p>
 
-                                <ul class="list-unstyled tech-feature-list text-white">
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span>Flexible, Easy to Use</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Accounting</strong> Procedures Guidebook</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Cost</strong> Accounting Fundamentals</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>Corporate</strong> Cash Management</li>
-                                    <li class="py-1"><span class="ti-control-forward mr-2"></span><strong>45-Day</strong> Money-Back Guarantee</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -69,20 +49,20 @@
                     <div class="row text-white shadow-lg">
                         <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">
                             <div class="card-body text-center bg-default border-right border-variant-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">For Industry</span></h2>
-                                <p class="mb-0">We provide total industry solutions</p>
+                                <h2 class="font-weight-bold"><span class="h4 mr-2">Advertise your product</span></h2>
+                                <p class="mb-0">advertising your products on the platform, which would be shared to the thousands of people in Fantome</p>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">
                             <div class="card-body text-center bg-secondary border-right border-variant-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">Digital Agency</span></h2>
-                                <p class="mb-0">Web, Digital agency and Marketing Agency</p>
+                                <h2 class="font-weight-bold"><span class="h4 mr-2">Donations</span></h2>
+                                <p class="mb-0">The second way is to donate to your fellow Fantome, You can donate from 5000frs to 3million francs.</p>
                             </div>
                         </div>
                         <div class="col-12 col-md-4 px-md-0">
                             <div class="card-body text-center bg-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">For Company</span></h2>
-                                <p class="mb-0">We provide quality services for company</p>
+                                <h2 class="font-weight-bold"><span class="h4 mr-2">Referal</span></h2>
+                                <p class="mb-0">Invite people into the community, when they make a donation, you will also get 5% of the amount they donated.</p>
                             </div>
                         </div>
                     </div>
@@ -101,7 +81,7 @@
                         <div class="dot-shape-top position-absolute">
                             <img src="{{ asset('assets/img/color-shape.svg') }}" alt="dot" class="img-fluid">
                         </div>
-                        <img class="fancy-radius img-fluid" src="{{ asset('assets/img/about-us-2.jpg') }}" alt="modern desk">
+                        <img class="fancy-radius img-fluid" src="{{ asset('images/slide/slide3.jpg') }}" alt="modern desk">
                         <div class="dot-shape position-absolute bottom-0">
                             <img src="{{ asset('assets/img/dot-shape.png') }}" alt="dot">
                         </div>
@@ -109,16 +89,9 @@
                 </div>
                 <div class="col-md-12 col-lg-5">
                     <div class="video-promo-content">
-                        <h2>Total Solutions for Your Business Here</h2>
-                        <p class="lead">Interactively develop timely niche markets before extensive imperatives. Professionally
-                            repurpose strategies.</p>
-                        <ul class="list-unstyled tech-feature-list">
-                            <li class="py-1"><span class="icon icon-xs mr-2 text-secondary"> <i class="ti-control-forward"></i></span><strong>Creative</strong> Websites Design</li>
-                            <li class="py-1"><span class="icon icon-xs mr-2 text-secondary"> <i class="ti-control-forward"></i></span><strong>Accounting</strong> Procedures Guidebook</li>
-                            <li class="py-1"><span class="icon icon-xs mr-2 text-secondary"> <i class="ti-control-forward"></i></span><strong>Cost</strong> Accounting Fundamentals</li>
-                            <li class="py-1"><span class="icon icon-xs mr-2 text-secondary"> <i class="ti-control-forward"></i></span><strong>SEO</strong> Optimization Services</li>
-                        </ul>
-                        <a href="#" class="btn btn-primary  mt-3">View Services</a>
+                        <h2>What will Unfantome do for you</h2>
+                        <p class="lead">Unnfantome is a community! A community that is bound with the saying “Givers never lack”. One that is designed majorly to help the people. The activities of this community is simple, The Fantomes help each other grow financially by paying to themselves as instructed by the community leader.</p>
+                        <a href="{{ url('about') }}" class="btn btn-primary  mt-3">About us</a>
                     </div>
                 </div>
             </div>
@@ -126,15 +99,65 @@
     </section>
     <!--about section end-->
 
+    <section class="section section-lg bg-soft ">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="section-heading text-center mb-5">
+                        <h2>Payment Plans</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <!-- Icon box -->
+                    <div class="icon-box text-center p-5 border border-variant-soft rounded-custom bg-white shadow-soft">
+                        <div class="card-icon mb-4">
+                            <img src="{{ asset('assets/img/icon/icon-8.svg') }}" alt="icon" class="img-fluid" width="60">
+                        </div>
+                        <h2 class="h5">Earn 50% in 7 days</h2>
+                        <h2 class="h6">5000 CFA to 900,000 CFA</h2>
+                    </div>
+                    <!-- End of Icon box -->
+                </div>
+                <div class="col-md-6 col-lg-6 mb-4">
+                    <!-- Icon box -->
+                    <div class="icon-box text-center p-5 border border-variant-soft rounded-custom bg-white shadow-soft">
+                        <div class="card-icon mb-4">
+                            <img src="{{ asset('assets/img/icon/icon-8.svg') }}" alt="icon" class="img-fluid" width="60">
+                        </div>
+                        <h2 class="h5">Earn 100% in 7 days</h2>
+                        <h2 class="h6">1million CFA to 3million CFA</h2>
+                    </div>
+                    <!-- End of Icon box -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg  bg-primary">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-8">
+                    <div class="section-heading mb-5 text-center text-white">
+                        <h2>Community Service</h2>
+                        <p class="lead">
+                            Every member of this community must give something to the less privileged after they receive payment up to five times in Fantome. Remember Givers never lack.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--services section start-->
     <section class="section services-section ptb-100 bg-soft">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="section-heading text-center mb-5">
-                        <h2>We Provide Quality Services</h2>
-                        <p class="lead">Efficiently aggregate end-to-end core competencies without maintainable. Dynamically
-                            foster tactical solutions without enabled value.</p>
+                        <h2>Our rules</h2>
                     </div>
                 </div>
             </div>
@@ -145,76 +168,57 @@
                             <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">Marketing Services</h3>
-                            <p>Progressively empower business "outside the box" thinking with resource-leveling
-                                partnerships.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
+                            <p>If you send a request to make a donation, when the community leader matches you to pay someone, make the payment within 6hours, if due to unforeseen circumstances you are unable to, call the supposed receiver and plead with them to extend your time to 24hours. Else your account will be blocked.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mb-4 mb-md-4">
                     <div class="services-single d-flex p-5 shadow-sm bg-white rounded">
                         <div class="icon icon-lg mr-4 text-secondary">
-                            <i class="ti-light-bulb"></i>
+                            <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">Web App Development</h3>
-                            <p>Quickly pontificate holistic e-commerce rather than goal web-readiness enhance inexpensive.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
+                            <p>After registering in Fantome, if you do not make a donation after 1 week, your account will be blocked.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mb-4 mb-md-4">
                     <div class="services-single d-flex p-5 shadow-sm bg-white rounded">
                         <div class="icon icon-lg mr-4 text-secondary">
-                            <i class="ti-headphone-alt"></i>
+                            <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">24/7 Call Center Service</h3>
-                            <p>Authoritatively reinvent multimedia based niches with global portals orchestrate client-centered</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
+                            <p>Authoritatively reinvent multimedia based niches with global portals orchestrate client-centered.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mb-4 mb-md-4">
                     <div class="services-single d-flex p-5 shadow-sm bg-white rounded">
                         <div class="icon icon-lg mr-4 text-secondary">
-                            <i class="ti-bell"></i>
+                            <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">Social Media Marketing</h3>
-                            <p>Assertively leverage other's standardized e-services with fully tested e-commerce synergistic.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
+                            <p>After receiving a donation from a person, if you do not donate to another person with 3 days, your account will be blocked.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mb-4 mb-md-4">
                     <div class="services-single d-flex p-5 shadow-sm bg-white rounded">
                         <div class="icon icon-lg mr-4 text-secondary">
-                            <i class="ti-briefcase"></i>
+                            <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">Corporate Business</h3>
                             <p>Enthusiastically scale client-centric supply chains vis-a-vis enabled benefits empower global core.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 mb-4 mb-md-4">
                     <div class="services-single d-flex p-5 shadow-sm bg-white rounded">
                         <div class="icon icon-lg mr-4 text-secondary">
-                            <i class="ti-vector"></i>
+                            <i class="ti-announcement"></i>
                         </div>
                         <div class="services-content-wrap">
-                            <h3 class="h6">Creative Consultancy</h3>
-                            <p>Conveniently productize corporate imperatives for innovative best practices ideas ethical change.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
+                            <p>After receiving your 5th payment, you are expected to go and bless the less privileged around you.</p>
                         </div>
                     </div>
                 </div>
@@ -224,43 +228,17 @@
     <!--services section end-->
 
     <!--cta section start-->
-    <section class="section py-0" style="background: url('{{ asset('assets/img/hero-bg11.jpg') }}')no-repeat center fixed">
+    <section class="section py-0" style="background: url('{{ asset('images/bg/5f739894b2b8d.jpg') }}')no-repeat center fixed">
         <div class="section-lg section bg-gradient-primary text-white  ">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-9 col-md-10 col-lg-9">
                         <div class="section-title text-center mb-5">
-                            <h2>Download Our Business Apps</h2>
-                            <p class="lead">Building your Apps helps attract more potential clients. Our integrated marketing team will promote enabled internal or work high-impact convergence.</p>
-                        </div>
-                        <div class="download-btn-wrap text-center">
-                            <a class="btn btn-pill border border-variant-light  text-white  shadow-hover mr-md-3 mb-4 mb-md-3 mb-lg-0" href="#">
-                                <div class="d-flex align-items-center">
-                                    <span class="icon icon-md mr-3 h-auto"><i class="fab fa-apple"></i></span>
-                                    <div class="d-block text-left">
-                                        <small class="font-small ">Download on the</small>
-                                        <div class="h6 mb-0">App Store</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="btn btn-pill border border-variant-light  text-white  shadow-hover mr-md-3 mb-4 mb-md-3 mb-lg-0" href="#">
-                                <div class="d-flex align-items-center">
-                                    <span class="icon icon-md mr-3 h-auto"><i class="fab fa-google-play"></i></span>
-                                    <div class="d-block text-left">
-                                        <small class="font-small ">Download on the</small>
-                                        <div class="h6 mb-0">Google Play</div>
-                                    </div>
-                                </div>
-                            </a>
-                            <a class="btn btn-pill border border-variant-light  text-white  shadow-hover" href="#">
-                                <div class="d-flex align-items-center">
-                                    <span class="icon icon-md mr-3 h-auto"><i class="fab fa-windows"></i></span>
-                                    <div class="d-block text-left">
-                                        <small class="font-small ">Download on the</small>
-                                        <div class="h6 mb-0">Windows</div>
-                                    </div>
-                                </div>
-                            </a>
+                            <h2>How to join Unfantome</h2>
+                            <p class="lead">
+                                Joining this community is not difficult, all you have to do is register on the website and place a request to donate. Wait for the Community Leader to direct you who to pay to, you are expected to send the amount you want to donate to the person that will show on your screen.<br> The person’s phone number will be made available too incase you want to communicate. If you do not make the payment within 6hours, your Fantome account will be blocked, after you Donate, you wait for 7days, then click on I NEED HELP, within 6hours you will get paid.<br> And if a person fails to pay you, after 24hours, the community head will block that person’s account and direct another to pay you.
+                            </p>
+                            <a href="{{ route('register-form') }}" class="btn btn-primary  mt-3">Sign up</a>
                         </div>
                     </div>
                 </div>
@@ -269,331 +247,46 @@
     </section>
     <!--cta section end-->
 
-    <!--portfolio section start-->
     <section class="section section-lg">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-heading text-center mb-5">
-                        <h2>Check Our Quality Work</h2>
-                        <p class="lead">Dynamically pursue reliable convergence rather than 24/7 process improvements
-                            develop end-to-end customer service.</p>
-                    </div>
+            <div class="row row-grid align-items-center">
+                <div class="col-12 col-lg-5">
+                    <h2>Why you can trust us</h2>
+                    <p class="lead"> Fantome is created for the people and owned by the people. An anonymous group of persons came together and birthed the idea of people helping one another.</p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="d-flex justify-content-center pb-2">
-                        <ul class="nav nav-pills custom-pill" role="tablist">
-                            <li class="nav-item">
-                                <a class="btn btn-pill btn-outline-primary" data-mixitup-control data-filter="all">All</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-pill btn-outline-primary" data-mixitup-control data-filter=".branding">Branding</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-pill btn-outline-primary" data-mixitup-control data-filter=".animation">Animation</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn btn-pill btn-outline-primary" data-mixitup-control data-filter=".other">Others</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="portfolio-container" id="MixItUp">
-                        <div class="mix portfolio-item branding" data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/3.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Creative Design</h5>
-                                        <p>Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mix portfolio-item other animation" data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/2.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Web UI/UX Design</h5>
-                                        <p>Web, Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mix portfolio-item animation" data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/4.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Corporate Flyer Design</h5>
-                                        <p>Flyer Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mix portfolio-item branding" data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/1.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Web UI/UX Design</h5>
-                                        <p>Web, Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mix portfolio-item animation other" data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/5.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Wall Painting Design</h5>
-                                        <p>Painting Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="mix portfolio-item branding " data-ref="mixitup-target">
-                            <div class="portfolio-wrapper border border-variant-soft rounded bg-soft p-2">
-                                <a href="" target="_blank">
-                                    <div class="content-overlay"></div>
-                                    <img class="img-fluid" src="{{ asset('assets/img/portfolios/6.jpg') }}" alt="portfolio" />
-                                    <div class="content-details fadeIn-bottom text-white">
-                                        <h5 class="text-white mb-1">Corporate Identity Design</h5>
-                                        <p>Corporate Design</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="gap"></div>
-                        <div class="gap"></div>
-                        <div class="gap"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--portfolio section end-->
 
-    <!--blog section start-->
-    <section class="section section-lg bg-soft">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-heading text-center mb-5">
-                        <h2>Our Latest News</h2>
-                        <p class="lead">Dynamically pursue reliable convergence rather than 24/7 process improvements
-                            develop end-to-end customer service.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="card bg-white border-variant-soft shadow-soft">
-                        <div class="blog-img position-relative">
-                            <img src="{{ asset('assets/img/blog/4.jpg') }}"
-                                 class="card-img-top rounded-top" alt="themetags office">
-                            <a href="#" class="position-absolute category-text small badge badge-secondary">SEO, Analytics</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center justify-content-between">
-                                <div class="post-group">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="23k followers">
-                                        <img class="avatar avatar-xs mr-2 img-fluid rounded-circle border border-variant-primary p-1" src="{{ asset('assets/img/clients/client-1.jpg') }}" alt="admin"> <span class="small">Admin</span>
-                                    </a>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="small"><span class="far fa-calendar-alt mr-2"></span>15 March 2020</span>
+                <div class="col-12 col-lg-6 ml-lg-auto">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="card bg-default text-white shadow-soft rounded mb-4">
+                                <div class="px-3 px-lg-4 py-5 text-center">
+                                    <span class="icon icon-lg d-block"><i class="fas fa-user-shield"></i></span>
+                                    <h5>Customer service</h5>
+                                    <p class="mb-0">Create low-effort customer service experiences.</p>
                                 </div>
                             </div>
-                            <h3 class="h5 card-title mt-3"><a href="#">Holisticly promote enabled</a></h3>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">Read more <span> <i class="fas fa-angle-right"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="card bg-white border-variant-soft shadow-soft">
-                        <div class="blog-img position-relative">
-                            <img src="{{ asset('assets/img/blog/2.jpg') }}"
-                                 class="card-img-top rounded-top" alt="themetags office">
-                            <a href="#" class="position-absolute category-text small badge badge-secondary">Marketing</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center justify-content-between">
-                                <div class="post-group">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="23k followers">
-                                        <img class="avatar avatar-xs mr-2 img-fluid rounded-circle border border-variant-primary p-1" src="{{ asset('assets/img/clients/client-2.jpg') }}" alt="admin"> <span class="small">Writer</span>
-                                    </a>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="small"><span class="far fa-calendar-alt mr-2"></span>15 March 2020</span>
+                            <div class="card bg-success text-white shadow-soft rounded mb-4">
+                                <div class="px-3 px-lg-4 py-5 text-center">
+                                    <span class="icon icon-lg d-block"><i class="fas fa-fire"></i></span>
+                                    <h5>Marketplace</h5>
+                                    <p class="mb-0">Proactively develop B2B alignments rather.</p>
                                 </div>
                             </div>
-                            <h3 class="h5 card-title mt-3"><a href="#">Authoritatively unleash fully</a></h3>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="card bg-white border-variant-soft shadow-soft">
-                        <div class="blog-img position-relative">
-                            <img src="{{ asset('assets/img/blog/1.jpg') }}"
-                                 class="card-img-top rounded-top" alt="themetags office">
-                            <a href="#" class="position-absolute category-text small badge badge-secondary">Business</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="media d-flex align-items-center justify-content-between">
-                                <div class="post-group">
-                                    <a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="23k followers">
-                                        <img class="avatar avatar-xs mr-2 img-fluid rounded-circle border border-variant-primary p-1" src="{{ asset('assets/img/clients/client-5.jpg') }}" alt="admin"> <span class="small">Joe B</span>
-                                    </a>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="small"><span class="far fa-calendar-alt mr-2"></span>15 March 2020</span>
+                        <div class="col-12 col-sm-6 pt-lg-4">
+                            <div class="card bg-secondary text-white shadow-soft rounded mb-4">
+                                <div class="px-3 px-lg-4 py-5 text-center">
+                                    <span class="icon icon-lg d-block"><i class="fas fa-lightbulb"></i></span>
+                                    <h5>Service to sales</h5>
+                                    <p class="mb-0">Progressively brand clicks-and-mortar.</p>
                                 </div>
                             </div>
-                            <h3 class="h5 card-title mt-3"><a href="#">We partnered up with Google</a></h3>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="" class="link-with-icon text-default font-small font-weight-bold" target="_blank">
-                                Read more <span> <i class="fas fa-angle-right"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--blog section end-->
-
-    <!--team section start-->
-    <section class="section section-lg ">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-heading text-center mb-5">
-                        <h2>Our Team</h2>
-                        <p class="lead">Dynamically pursue reliable convergence rather than 24/7 process improvements
-                            develop end-to-end customer service.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6 col-lg-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="profile-card">
-                        <div class="card bg-soft  shadow-sm animate-hover border-variant-soft">
-                            <div class="profile-image-small  bg-white  shadow-inset shadow border border-light rounded-circle p-1 mt-5 mb-4">
-                                <img src="{{ asset('assets/img/team/team-6.jpg') }}"
-                                     class="card-img-top rounded-circle" alt="Christopher Avatar">
-                            </div>
-                            <div class="card-body text-center px-5 pb-5 pt-0">
-                                <h3 class="h5 mb-2">John Q. Public</h3>
-                                <span class="h6 font-weight-normal text-gray mb-3">Developer</span>
-                                <ul class="list-unstyled d-flex my-3 justify-content-center">
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="facebook social link" class="icon icon-xs icon-facebook mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="50k Like">
-                                            <span class="fab fa-facebook-f"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="twitter social link" class="icon icon-xs icon-twitter mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="40k Followers">
-                                            <span class="fab fa-twitter"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="slack social link" class="icon icon-xs icon-slack mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="25k Subscribe">
-                                            <span class="fab fa-youtube"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="dribbble social link" class="icon icon-xs icon-dribbble mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="2k Project">
-                                            <span class="fab fa-dribbble"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="profile-card">
-                        <div class="card bg-soft  shadow-sm animate-hover border-variant-soft">
-                            <div class="profile-image-small  bg-white  shadow-inset shadow border border-light rounded-circle p-1 mt-5 mb-4">
-                                <img src="{{ asset('assets/img/team/team-1.jpg') }}"
-                                     class="card-img-top rounded-circle" alt="Christopher Avatar">
-                            </div>
-                            <div class="card-body text-center px-5 pb-5 pt-0">
-                                <h3 class="h5 mb-2">Madurai Mani Iyer</h3>
-                                <span class="h6 font-weight-normal text-gray mb-3">Developer</span>
-                                <ul class="list-unstyled d-flex my-3 justify-content-center">
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="facebook social link" class="icon icon-xs icon-facebook mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="50k Like">
-                                            <span class="fab fa-facebook-f"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="twitter social link" class="icon icon-xs icon-twitter mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="40k Followers">
-                                            <span class="fab fa-twitter"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="slack social link" class="icon icon-xs icon-slack mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="25k Subscribe">
-                                            <span class="fab fa-youtube"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="dribbble social link" class="icon icon-xs icon-dribbble mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="2k Project">
-                                            <span class="fab fa-dribbble"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4 mb-md-4 mb-lg-0 mb-4">
-                    <div class="profile-card">
-                        <div class="card bg-soft  shadow-sm animate-hover border-variant-soft">
-                            <div class="profile-image-small  bg-white  shadow-inset shadow border border-light rounded-circle p-1 mt-5 mb-4">
-                                <img src="{{ asset('assets/img/team/team-4.jpg') }}"
-                                     class="card-img-top rounded-circle" alt="Christopher Avatar">
-                            </div>
-                            <div class="card-body text-center px-5 pb-5 pt-0">
-                                <h3 class="h5 mb-2">Maria J. Go</h3>
-                                <span class="h6 font-weight-normal text-gray mb-3">Developer</span>
-                                <ul class="list-unstyled d-flex my-3 justify-content-center">
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="facebook social link" class="icon icon-xs icon-facebook mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="50k Like">
-                                            <span class="fab fa-facebook-f"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="twitter social link" class="icon icon-xs icon-twitter mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="40k Followers">
-                                            <span class="fab fa-twitter"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="slack social link" class="icon icon-xs icon-slack mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="25k Subscribe">
-                                            <span class="fab fa-youtube"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank" aria-label="dribbble social link" class="icon icon-xs icon-dribbble mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="2k Project">
-                                            <span class="fab fa-dribbble"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <div class="card bg-primary text-white shadow-soft rounded mb-4">
+                                <div class="px-3 px-lg-4 py-5 text-center">
+                                    <span class="icon icon-lg d-block"><i class="fas fa-shapes"></i></span>
+                                    <h5>Make it simple</h5>
+                                    <p class="mb-0">Competently evolve user friendly platform.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -601,7 +294,6 @@
             </div>
         </div>
     </section>
-    <!--team section end-->
 
     <!--testimonial section start-->
     <section class="section section-lg bg-soft">
@@ -681,24 +373,4 @@
         </div>
     </section>
     <!--testimonial section end-->
-
-    <!--cta section start-->
-    <section class="section section-sm py-5 ">
-        <div class="container">
-            <div class="row justify-content-around align-items-center">
-                <div class="col-md-7">
-                    <div class="subscribe-content">
-                        <h3>Consulting Agency for Your Business</h3>
-                        <p class="mb-lg-0 mb-md-0">Rapidiously engage fully tested e-commerce with progressive architectures.</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="action-btn text-lg-right text-sm-left">
-                        <a href="#" class="btn btn-primary">Contact With Us</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--cta section end-->
 @endsection

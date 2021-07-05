@@ -106,15 +106,16 @@ class RegisterController extends Controller
             'name' => $data['first_name'].' '.$data['last_name'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
+            'referee' => $data['referee'],
             'mode_of_payment' => $data['mode_of_payment'],
             'password' => Hash::make($data['password']),
         ]);
 
         // Send Email to registered User
         Mail::send('emails.members.registration-complete', $data, static function ($message) use ($data) {
-            $message->from('info@nigerliberte.com', 'Niger Liberte');
+            $message->from('info@unfantome.com', 'Unfantome');
             $message->to($data['email'], $data['name']);
-            $message->replyTo('info@nigerliberte.com', 'Niger Liberte');
+            $message->replyTo('info@unfantome.com', 'Unfantome');
             $message->subject('Registration Complete');
         });
 

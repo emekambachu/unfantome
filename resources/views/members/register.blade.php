@@ -41,7 +41,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-user"></i>
                                                 </div>
-                                                <input type="text" name="first_name" class="form-control"
+                                                <input type="text" name="first_name"
+                                                       class="form-control @error('first_name') is-invalid @enderror"
                                                        placeholder="First Name" required>
                                             </div>
                                         </div>
@@ -57,7 +58,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-user"></i>
                                                 </div>
-                                                <input type="text" name="last_name" class="form-control"
+                                                <input type="text" name="last_name"
+                                                       class="form-control @error('last_name') is-invalid @enderror"
                                                        placeholder="Last Name" required>
                                             </div>
                                         </div>
@@ -74,10 +76,12 @@
                                                 <div class="input-icon">
                                                     <i class="ti-email"></i>
                                                 </div>
-                                                <input type="email" class="form-control" placeholder="name@address.com" required>
+                                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                       placeholder="name@address.com" required>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
@@ -87,12 +91,30 @@
                                                 <div class="input-icon">
                                                     <i class="ti-user"></i>
                                                 </div>
-                                                <input type="text" name="mobile" class="form-control"
+                                                <input type="text" name="mobile"
+                                                       class="form-control @error('mobile') is-invalid @enderror"
                                                        placeholder="Mobile number" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- Label -->
+                                            <label class="font-weight-bold">Referee (Include referee code)</label>
+                                            <!-- Input group -->
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-icon">
+                                                    <i class="ti-user"></i>
+                                                </div>
+                                                <input type="text" name="referee"
+                                                       class="form-control @error('referee') is-invalid @enderror"
+                                                       placeholder="Referee">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">
@@ -103,7 +125,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <select name="mode_of_payment" class="form-control">
+                                                <select name="mode_of_payment"
+                                                        class="form-control @error('mode_of_payment') is-invalid @enderror">
                                                     <option value="">Select</option>
                                                     <option value="Orange Money">Orange Money</option>
                                                     <option value="Zamani Money">Zamani Money</option>
@@ -111,6 +134,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <!-- Password -->
                                         <div class="form-group">
@@ -123,17 +147,18 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <input type="password" class="form-control" placeholder="Enter your password">
+                                                <input type="password"
+                                                       class="form-control @error('password') is-invalid @enderror"
+                                                       placeholder="Enter your password">
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-6">
                                         <!-- Password -->
                                         <div class="form-group">
                                             <!-- Label -->
-                                            <label class="font-weight-bold">
-                                                Confirm Password
-                                            </label>
+                                            <label class="font-weight-bold">Confirm Password</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
@@ -147,18 +172,19 @@
                                     <div class="col-md-12">
                                         <div class="my-4">
                                             <div class="form-check square-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="check-terms">
+                                                <input class="form-check-input" type="checkbox" value=""
+                                                       id="check-terms" required>
                                                 <label class="form-check-label" for="check-terms">
-                                                    I agree to the <a href="#">terms and conditions</a>
+                                                    I agree to the <a href="{{ url('terms') }}">terms and conditions</a>
                                                 </label>
                                             </div>
                                         </div>
 
                                         <!-- Submit -->
                                         <button class="btn btn-block btn-secondary border-radius mt-4 mb-3">
-                                            Sign up
-                                        </button>
+                                            Sign up</button>
                                     </div>
+
                                 </div>
                             </form>
                         </div>

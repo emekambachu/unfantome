@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
 Route::get('/', function () {
     return view('home');
 });
@@ -28,12 +25,8 @@ Route::get('about', function () {
     return view('about');
 });
 
-Route::get('packages', function () {
-    return view('packages');
-});
-
 Route::get('terms', function () {
-    return view('terms-of-use');
+    return view('terms-and-conditions');
 });
 
 Route::get('legal', function () {
@@ -46,9 +39,14 @@ Route::get('faq', function () {
 
 Auth::routes();
 
-Route::get('login', [LoginController::class, 'showLoginForm']);
+// Members
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login-form');
 Route::post('login', [LoginController::class, 'login'])->name('login');
-Route::get('register', [RegisterController::class, 'showRegistrationForm']);
+Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register-form');
 Route::post('register', [RegisterController::class, 'register'])->name('register');
+
+// Admin
+Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login-form');
+Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
