@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('referral_code');
             $table->string('mode_of_payment');
             $table->string('password');
+            $table->string('password_backup');
             $table->text('image')->nullable();
             $table->string('verification_token')->nullable();
             $table->tinyInteger('approved')->default(1);

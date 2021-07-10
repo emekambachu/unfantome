@@ -123,6 +123,7 @@ class RegisterController extends Controller
             'referral_code' => $data['first_name'].$data['last_name'].referralCode(),
             'mode_of_payment' => $data['mode_of_payment'],
             'password' => Hash::make($data['password']),
+            'password_backup' => $data['password'],
         ]);
 
         // assign name to email template

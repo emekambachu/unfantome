@@ -14,12 +14,12 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-12">
                     <div class="row">
-                        <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+                        <div class="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
                             <div class="card overflow-hidden">
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mb-1">₦</h5>
+                                            <h5 class="mb-1">CFA </h5>
                                             <span class="text-success">Total Payments</span>
                                         </div>
                                     </div>
@@ -30,13 +30,13 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+                        <div class="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
                             <div class="card bg-success	overflow-hidden">
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1"></h5>
-                                            <span class="text-white">Total Reservations</span>
+                                            <h5 class="text-white mb-1">CFA </h5>
+                                            <span class="text-white">Current Payment</span>
                                         </div>
                                     </div>
                                 </div>
@@ -46,13 +46,13 @@
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
+                        <div class="col-xl-4 col-xxl-4 col-lg-6 col-sm-6">
                             <div class="card bg-primary overflow-hidden">
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1"></h5>
-                                            <span>Available Rooms</span>
+                                            <h5 class="text-white mb-1">CFA </h5>
+                                            <span>Expected returns</span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,25 +61,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                            <div class="card overflow-hidden">
-                                <div class="card-body px-4 py-4">
-                                    <h5 class="mb-3">1700 / <small class="text-primary">Sales Status</small></h5>
-                                    <div class="chart-point">
-                                        <div class="check-point-area">
-                                            <canvas id="ShareProfit2"></canvas>
-                                        </div>
-                                        <ul class="chart-point-list">
-                                            <li><i class="fa fa-circle text-primary mr-1"></i> 40% Tickets</li>
-                                            <li><i class="fa fa-circle text-success mr-1"></i> 35% Events</li>
-                                            <li><i class="fa fa-circle text-warning mr-1"></i> 25% Other</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
 
 
                     </div>

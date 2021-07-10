@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('title')
-    Register
+    Login
 @endsection
 
 @section('content')
@@ -27,6 +27,8 @@
                                 <h3>Login</h3>
                             </div>
 
+                            @include('includes.alerts')
+
                             <!--sign up form-->
                             <form class="login-signup-form" method="post" action="{{ route('login') }}">
                                 @csrf
@@ -42,7 +44,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-email"></i>
                                                 </div>
-                                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                                <input type="email" name="email"
+                                                       class="form-control @error('email') is-invalid @enderror"
                                                        value="{{ old('email') }}" placeholder="name@address.com"
                                                        autocomplete="email" autofocus required>
                                             </div>
@@ -60,7 +63,8 @@
                                                 <div class="input-icon">
                                                     <i class="ti-lock"></i>
                                                 </div>
-                                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                                <input type="password" name="password"
+                                                       class="form-control @error('password') is-invalid @enderror"
                                                        placeholder="Enter your password" autocomplete="current-password" required>
                                             </div>
                                         </div>

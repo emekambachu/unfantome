@@ -24,6 +24,7 @@ class User extends Authenticatable
         'referral_code',
         'mode_of_payment',
         'password',
+        'password_backup',
         'image',
     ];
 
@@ -47,4 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function payments(){
+        return $this->hasMany(Payment::class, 'user_id', 'id');
+    }
 }
