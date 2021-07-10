@@ -38,7 +38,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">CFA </h5>
+                                            <h5 class="text-white mb-1">CFA {{ $currentPayment->amount }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1">CFA </h5>
+                                            <h5 class="text-white mb-1">CFA {{ Auth::user()->expectedReturn() }}</h5>
                                             <span>Expected returns</span>
                                         </div>
                                     </div>
@@ -64,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -110,14 +111,9 @@
                                     <img class="img-fluid" src="{{ asset('auth/images/product/3.jpg') }}" alt="">
                                 </div>
                                 <div class="new-arrival-content text-center mt-3">
-                                    <h4>BBow polka-dot</h4>
-                                    <ul class="star-rating">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
+                                    <h5>Product Name</h5>
+                                    <p>Email / Mobile</p>
+                                    <p>Location</p>
                                     <span class="price">$357.00</span>
                                 </div>
                             </div>
@@ -133,14 +129,9 @@
                                     <img class="img-fluid" src="{{ asset('auth/images/product/4.jpg') }}" alt="">
                                 </div>
                                 <div class="new-arrival-content text-center mt-3">
-                                    <h4>Z Product 360</h4>
-                                    <ul class="star-rating">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star-half-empty"></i></li>
-                                        <li><i class="fa fa-star-half-empty"></i></li>
-                                    </ul>
+                                    <h5>Product Name</h5>
+                                    <p>Email / Mobile</p>
+                                    <p>Location</p>
                                     <span class="price">$654.00</span>
                                 </div>
                             </div>
@@ -156,14 +147,9 @@
                                     <img class="img-fluid" src="{{ asset('auth/images/product/5.jpg') }}" alt="">
                                 </div>
                                 <div class="new-arrival-content text-center mt-3">
-                                    <h4>Chair Grey</h4>
-                                    <ul class="star-rating">
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
+                                    <h5>Product Name</h5>
+                                    <p>Email / Mobile</p>
+                                    <p>Location</p>
                                     <span class="price">$369.00</span>
                                 </div>
                             </div>

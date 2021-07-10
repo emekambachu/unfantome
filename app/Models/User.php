@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -51,5 +52,33 @@ class User extends Authenticatable
 
     public function payments(){
         return $this->hasMany(Payment::class, 'user_id', 'id');
+    }
+
+    public function completedPayments(){
+        return $this->hasMany(Payment::class, 'user_id', 'id')
+            ->where([
+                ['approved', 1],
+                ['completed_returns', 1],
+            ]);
+    }
+
+    public function pendingPayment(){
+        return $this->hasOne(Payment::class, 'user_id', 'id')
+            ->where([
+                ['approved', 0],
+                ['completed_returns', 0],
+            ]);
+    }
+
+    public function expectedReturn(){
+        $currentPayment = Payment::where([
+            ['user_id', $this->id],
+            ['approved', 0],
+            ['completed_returns', 0],
+        ])->first();
+
+        $paymentPlan = PaymentPlan::findOrFail($currentPayment->payment_plan_id);
+
+        return $currentPayment->amount * ($paymentPlan->percentage/100) + $currentPayment->amount;
     }
 }

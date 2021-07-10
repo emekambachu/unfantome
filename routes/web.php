@@ -60,6 +60,8 @@ Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'
     ->name('member.market-place');
 Route::get('member/account-settings', [MemberAccountController::class, 'accountSettings'])
     ->name('member.account-settings');
+Route::get('member/account-settings/update', [MemberAccountController::class, 'updateAccountSettings'])
+    ->name('member.account-settings.update');
 
 // Admin login and logout
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])
