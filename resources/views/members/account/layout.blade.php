@@ -183,7 +183,7 @@
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a href="{{ route('member.account-setting') }}" class="dropdown-item ai-icon">
+                                <a href="{{ route('member.account-settings') }}" class="dropdown-item ai-icon">
                                     <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                     <span class="ml-2">Account Setting</span>
                                 </a>
@@ -222,7 +222,9 @@
     <div class="deznav">
         <div class="deznav-scroll">
             <ul class="metismenu" id="menu">
-
+                <li>
+                    <span class="ml-2">Referral Code: {{ Auth::user()->referral_code }}</span>
+                </li>
                 <li>
                     <a class="ai-icon" href="{{ route('member.dashboard') }}" aria-expanded="false">
                         <i class="fa fa-desktop"></i>
@@ -232,21 +234,21 @@
 
                 <li>
                     <a class="ai-icon" href="{{ route('member.make-payment') }}" aria-expanded="false">
-                        <i class="fa fa-calendar-check-o"></i>
+                        <i class="fa fa-money"></i>
                         <span class="nav-text">Make Payment</span>
                     </a>
                 </li>
 
                 <li>
                     <a class="ai-icon" href="{{ route('member.market-place') }}" aria-expanded="false">
-                        <i class="fa fa-calendar-check-o"></i>
+                        <i class="fa fa-shopping-basket"></i>
                         <span class="nav-text">Market Place</span>
                     </a>
                 </li>
 
                 <li>
                     <a class="ai-icon" href="" aria-expanded="false">
-                        <i class="fa fa-calendar-check-o"></i>
+                        <i class="fa fa-shopping-basket"></i>
                         <span class="nav-text">Manage Products</span>
                     </a>
                 </li>

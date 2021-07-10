@@ -10,7 +10,7 @@ class PaymentPlan extends Model
     protected $fillable = [
         'percentage',
         'days',
-        'principal',
-        'return'
+        'min',
+        'max',
     ];
 }

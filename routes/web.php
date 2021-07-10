@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAccountController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -49,15 +50,39 @@ Route::post('register', [RegisterController::class, 'register'])->name('register
 Route::get('member/logout', [LoginController::class, 'logout'])->name('member.logout');
 
 // Member account
-Route::get('member/dashboard', [MemberAccountController::class, 'dashboard'])->name('member.dashboard');
-Route::get('member/make-payment', [MemberAccountController::class, 'makePayment'])->name('member.make-payment');
-Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'])->name('member.market-place');
-Route::get('member/account-setting', [MemberAccountController::class, 'accountSetting'])->name('member.account-setting');
-
+Route::get('member/dashboard', [MemberAccountController::class, 'dashboard'])
+    ->name('member.dashboard');
+Route::post('member/make-payment', [MemberAccountController::class, 'makePayment'])
+    ->name('member.make-payment');
+Route::get('member/all-payments', [MemberAccountController::class, 'allPayments'])
+    ->name('member.all-payments');
+Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'])
+    ->name('member.market-place');
+Route::get('member/account-settings', [MemberAccountController::class, 'accountSettings'])
+    ->name('member.account-settings');
 
 // Admin login and logout
-Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login-form');
-Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
+Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])
+    ->name('admin.login-form');
+Route::post('admin/login', [AdminLoginController::class, 'login'])
+    ->name('admin.login');
+Route::post('admin/logout', [AdminLoginController::class, 'logout'])
+    ->name('admin.logout');
+
+// Admin account
+Route::get('admin/dashboard', [AdminAccountController::class, 'dashboard'])
+    ->name('admin.dashboard');
+Route::get('admin/payment-plans', [AdminAccountController::class, 'paymentPlans'])
+    ->name('admin.payment-plans');
+Route::get('admin/manage-users', [AdminAccountController::class, 'manageUsers'])
+    ->name('admin.manage-users');
+Route::get('admin/market-place', [AdminAccountController::class, 'marketPlace'])
+    ->name('admin.market-place');
+Route::get('admin/pairings', [AdminAccountController::class, 'pairings'])
+    ->name('admin.pairings');
+Route::get('admin/account-settings', [AdminAccountController::class, 'accountSettings'])
+    ->name('admin.account-settings');
+
 
 //Github Deployment
 Route::post('github/deploy', [GithubDeploymentController::class, 'deploy']);

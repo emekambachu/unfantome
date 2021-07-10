@@ -15,10 +15,10 @@ class CreatePaymentPlansTable extends Migration
     {
         Schema::create('payment_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('percentage');
-            $table->string('days');
-            $table->string('principal');
-            $table->string('return');
+            $table->integer('percentage');
+            $table->integer('days');
+            $table->integer('min');
+            $table->integer('max');
             $table->timestamps();
         });
     }

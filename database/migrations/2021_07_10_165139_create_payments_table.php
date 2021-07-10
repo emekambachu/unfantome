@@ -15,8 +15,8 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->unsigned();
-            $table->string('payment_plan_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('payment_plan_id')->unsigned();
             $table->integer('amount');
             $table->boolean('approved');
             $table->boolean('completed_returns');

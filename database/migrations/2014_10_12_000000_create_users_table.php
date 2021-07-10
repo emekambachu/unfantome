@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('password_backup');
             $table->text('image')->nullable();
             $table->string('verification_token')->nullable();
+            $table->tinyInteger('paired')->default(0);
             $table->tinyInteger('approved')->default(1);
             $table->rememberToken();
             $table->timestamps();
