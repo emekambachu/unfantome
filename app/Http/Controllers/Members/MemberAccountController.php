@@ -86,7 +86,7 @@ class MemberAccountController extends Controller
 
     public function updateAccountSettings(Request $request){
 
-        $input = $request->all();
+        $input = $request->except('_token');
 
         if($file = $request->file('image')){
 
@@ -123,8 +123,11 @@ class MemberAccountController extends Controller
         }
 
         $input['image'] = $image;
+        $input['password'] = !empty($input['password']) ? bcrypt($input['password']) : Auth::user()->password;
 
         User::where('id', Auth::user()->id)->update($input);
 
+        Session::flash('success', 'Account updated');
+        return redirect()->back();
     }
 }

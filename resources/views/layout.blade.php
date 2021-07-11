@@ -73,7 +73,7 @@
 <!--header section start-->
 <header class="header position-relative z-9">
     <!--Language Translator Display-->
-    <div style="background-color: #0648B3;" align="center">
+    <div style="background-color: #1A2C79;" align="center">
         <a href="#" onclick="doGTranslate('en|en');return false;" title="English"
            style="background-position:-0px -0px; color: #ffffff; margin-right: 3px;">ENGLISH
         </a>

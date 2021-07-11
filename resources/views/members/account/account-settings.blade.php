@@ -23,17 +23,36 @@
                         <div class="card-body">
                             @include('includes.alerts')
                             <div class="basic-form">
-                                <form method="post" action="{{ route('member.account-settings.update') }}">
+                                <form method="post" action="{{ route('member.account-settings.update') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label>Name:</label>
-                                        <input type="text" class="form-control mb-4" name="name" required>
+                                        <input type="text" class="form-control mb-4" name="name"
+                                               value="{{ Auth::user()->name }}" required>
 
                                         <label>Email:</label>
-                                        <input type="email" class="form-control mb-4" name="email" required>
+                                        <input type="email" class="form-control mb-4" name="email"
+                                               value="{{ Auth::user()->email }}" required>
 
                                         <label>Mobile:</label>
-                                        <input type="text" class="form-control mb-4" name="last_name" required>
+                                        <input type="text" class="form-control mb-4" name="mobile"
+                                               value="{{ Auth::user()->mobile }}" required>
+
+                                        <label>Password:</label>
+                                        <input type="password" class="form-control mb-4" name="mobile" autocomplete="false">
+
+                                        <label>Mode of payment</label>
+                                        <select class="form-control mb-4" name="mode_of_payment" id="sel1" required>
+                                            <option selected value="{{ Auth::user()->mode_of_payment }}">{{ Auth::user()->mode_of_payment }}</option>
+                                            @if(Auth::user()->mode_of_payment === 'Orange Money')
+                                            <option value="Zamani Money">Zamani Money</option>
+                                            @else
+                                            <option value="Orange Money">Orange Money</option>
+                                            @endif
+                                        </select>
+
+                                        <label>Image:</label>
+                                        <input type="file" class="form-control mb-4" name="image">
 
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
