@@ -38,7 +38,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">CFA {{ $currentPayment->amount }}</h5>
+                                            <h5 class="text-white mb-1">CFA {{ number_format($currentPayment->amount) ?? 0 }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1">CFA {{ Auth::user()->expectedReturn() }}</h5>
+                                            <h5 class="text-white mb-1">CFA {{ number_format(Auth::user()->expectedReturn()) }}</h5>
                                             <span>Expected returns</span>
                                         </div>
                                     </div>

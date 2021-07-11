@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class AdminLoginController extends Controller
@@ -91,9 +92,12 @@ class AdminLoginController extends Controller
      */
     protected function attemptLogin(Request $request)
     {
-        return $this->guard()->attempt(
-            $this->credentials($request), $request->filled('remember')
-        );
+        // Attempt to log the user in
+        return Auth::guard('admin')->attempt($this->credentials($request), $request->filled('remember'));
+
+//        return $this->guard()->attempt(
+//            $this->credentials($request), $request->filled('remember')
+//        );
     }
 
     /**
@@ -105,14 +109,11 @@ class AdminLoginController extends Controller
     protected function credentials(Request $request)
     {
 //        return $request->only($this->username(), 'password');
-        if (is_numeric($request->get('email'))) {
-            return ['mobile'=>$request->get('email'),'password'=>$request->get('password')];
-        }
 
-        if(filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
-            return ['email' => $request->get('email'), 'password'=>$request->get('password')];
+        if(filter_var($request->get('username'), FILTER_VALIDATE_EMAIL)) {
+            return ['email' => $request->get('username'), 'password'=>$request->get('password')];
         }
-        return ['username' => $request->get('email'), 'password'=>$request->get('password')];
+        return ['username' => $request->get('username'), 'password'=>$request->get('password')];
     }
 
     /**
@@ -170,7 +171,7 @@ class AdminLoginController extends Controller
      */
     public function username()
     {
-        return 'email';
+        return 'username';
     }
 
     /**
@@ -201,7 +202,7 @@ class AdminLoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = RouteServiceProvider::ADMIN_DASHBOARD;
 
     /**
      * Create a new controller instance.

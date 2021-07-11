@@ -120,6 +120,7 @@
                 <div class="collapse navbar-collapse justify-content-between">
 
                     <div class="header-left">
+                        <p class="ml-2">Referral Code: {{ Auth::user()->referral_code }}</p>
                         {{--                        <div class="search_bar dropdown">--}}
                         {{--                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">--}}
                         {{--                                    <i class="mdi mdi-magnify"></i>--}}
@@ -260,9 +261,6 @@
     <div class="deznav">
         <div class="deznav-scroll">
             <ul class="metismenu" id="menu">
-                <li>
-                    <span class="ml-2">Referral Code: {{ Auth::user()->referral_code }}</span>
-                </li>
                 <li>
                     <a class="ai-icon" href="{{ route('member.dashboard') }}" aria-expanded="false">
                         <i class="fa fa-desktop"></i>
