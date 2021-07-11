@@ -38,7 +38,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">CFA {{ number_format($currentPayment->amount) ?? 0 }}</h5>
+                                            <h5 class="text-white mb-1">CFA {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
