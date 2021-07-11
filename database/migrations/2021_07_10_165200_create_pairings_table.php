@@ -15,6 +15,11 @@ class CreatePairingsTable extends Migration
     {
         Schema::create('pairings', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('payer_id')->unsigned();
+            $table->bigInteger('receiver_id')->unsigned();
+            $table->integer('amount');
+            $table->text('proof_of_payment');
+            $table->boolean('approved')->default(0);
             $table->timestamps();
         });
     }

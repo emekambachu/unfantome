@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'password_backup',
         'image',
+        'paired',
     ];
 
     /**

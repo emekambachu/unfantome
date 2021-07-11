@@ -78,6 +78,10 @@ Route::get('admin/payment-plans', [AdminAccountController::class, 'paymentPlans'
     ->name('admin.payment-plans');
 Route::get('admin/manage-users', [AdminAccountController::class, 'manageUsers'])
     ->name('admin.manage-users');
+Route::post('admin/approve-user/{id}', [AdminAccountController::class, 'approveUser'])
+    ->name('admin.approve-user');
+Route::delete('admin/delete-user/{id}', [AdminAccountController::class, 'deleteUser'])
+    ->name('admin.delete-user');
 Route::get('admin/market-place', [AdminAccountController::class, 'marketPlace'])
     ->name('admin.market-place');
 Route::get('admin/pairings', [AdminAccountController::class, 'pairings'])

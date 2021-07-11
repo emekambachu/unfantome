@@ -178,7 +178,7 @@
                             <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                 <img src="{{ asset('auth/user.png') }}" width="20" alt=""/>
                                 <div class="header-info">
-                                    <span>Hey, <strong>Admin</strong></span>
+                                    <span>Hey, <strong>{{ Auth::user()->name }}</strong></span>
                                     <small></small>
                                 </div>
                             </a>
@@ -239,14 +239,14 @@
 
                 <li>
                     <a class="ai-icon" href="{{ route('admin.pairings') }}" aria-expanded="false">
-                        <i class="fa fa-users-cog"></i>
+                        <i class="fa fa-users"></i>
                         <span class="nav-text">Pairings</span>
                     </a>
                 </li>
 
                 <li>
                     <a class="ai-icon" href="{{ route('admin.payment-plans') }}" aria-expanded="false">
-                        <i class="fa fa-money-bill-wave"></i>
+                        <i class="fa fa-money"></i>
                         <span class="nav-text">Payment Plans</span>
                     </a>
                 </li>
