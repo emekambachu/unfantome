@@ -57,24 +57,27 @@ class User extends Authenticatable
 
     public function completedPayments(){
         return $this->hasMany(Payment::class, 'user_id', 'id')
-            ->where([
-                ['approved', 1],
-                ['completed_returns', 1],
-            ]);
+            ->where('approved', 1);
+    }
+
+    public function completedReturns(){
+        return $this->hasMany(Payment::class, 'user_id', 'id')
+            ->where('completed_returns', 1);
     }
 
     public function pendingPayment(){
         return $this->hasOne(Payment::class, 'user_id', 'id')
-            ->where([
-                ['approved', 0],
-                ['completed_returns', 0],
-            ]);
+            ->where('approved', 0);
+    }
+
+    public function pendingReturn(){
+        return $this->hasOne(Payment::class, 'user_id', 'id')
+            ->where('completed_returns', 0);
     }
 
     public function expectedReturn(){
         $currentPayment = Payment::where([
             ['user_id', $this->id],
-            ['approved', 0],
             ['completed_returns', 0],
         ])->first();
 

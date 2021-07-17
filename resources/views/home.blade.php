@@ -41,36 +41,36 @@
     </section>
     <!--hero section end-->
 
-    <!--promo section start-->
-    <section class="section section-sm pb-0 z-3">
-        <div class="container mt-n8">
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="row text-white shadow-lg">
-                        <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">
-                            <div class="card-body text-center bg-default border-right border-variant-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">Advertise your product</span></h2>
-                                <p class="mb-0">advertising your products on the platform, which would be shared to the thousands of people in Fantome</p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">
-                            <div class="card-body text-center bg-secondary border-right border-variant-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">Donations</span></h2>
-                                <p class="mb-0">The second way is to donate to your fellow Fantome, You can donate from 5000frs to 3million francs.</p>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-4 px-md-0">
-                            <div class="card-body text-center bg-primary py-5">
-                                <h2 class="font-weight-bold"><span class="h4 mr-2">Referal</span></h2>
-                                <p class="mb-0">Invite people into the community, when they make a donation, you will also get 5% of the amount they donated.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--promo section end-->
+{{--    <!--promo section start-->--}}
+{{--    <section class="section section-sm pb-0 z-3">--}}
+{{--        <div class="container mt-n8">--}}
+{{--            <div class="row justify-content-center">--}}
+{{--                <div class="col-12">--}}
+{{--                    <div class="row text-white shadow-lg">--}}
+{{--                        <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">--}}
+{{--                            <div class="card-body text-center bg-default border-right border-variant-primary py-5">--}}
+{{--                                <h2 class="font-weight-bold"><span class="h4 mr-2">Advertise your product</span></h2>--}}
+{{--                                <p class="mb-0">advertising your products on the platform, which would be shared to the thousands of people in Fantome</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-12 col-md-4 px-md-0 mb-4 mb-lg-0">--}}
+{{--                            <div class="card-body text-center bg-secondary border-right border-variant-primary py-5">--}}
+{{--                                <h2 class="font-weight-bold"><span class="h4 mr-2">Donations</span></h2>--}}
+{{--                                <p class="mb-0">The second way is to donate to your fellow Fantome, You can donate from 5000frs to 3million francs.</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col-12 col-md-4 px-md-0">--}}
+{{--                            <div class="card-body text-center bg-primary py-5">--}}
+{{--                                <h2 class="font-weight-bold"><span class="h4 mr-2">Referal</span></h2>--}}
+{{--                                <p class="mb-0">Invite people into the community, when they make a donation, you will also get 5% of the amount they donated.</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </section>--}}
+{{--    <!--promo section end-->--}}
 
     <!--about section start-->
     <section class="section section-lg  ">

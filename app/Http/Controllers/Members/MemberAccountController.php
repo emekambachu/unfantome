@@ -27,7 +27,6 @@ class MemberAccountController extends Controller
         return Payment::where([
             ['user_id', Auth::user()->id],
             ['approved', 0],
-            ['completed_returns', 0],
         ])->first();
     }
 
@@ -55,11 +54,14 @@ class MemberAccountController extends Controller
             return redirect()->back();
         }
 
+        $input['balance'] = $input['amount'] * ($paymentPlan->percentage/100) + $input['amount'];
+
         if($input['amount'] >= $paymentPlan->min && $input['amount'] <= $paymentPlan->max){
             Payment::create([
                 'user_id' => Auth::user()->id,
                 'payment_plan_id' => $input['payment_plan_id'],
                 'amount' => $input['amount'],
+                'balance' => $input['balance'],
             ]);
             Session::flash('success', 'Your investment have been initiated, you will be matched shortly');
         }else{

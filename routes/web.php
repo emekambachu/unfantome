@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAccountController;
+use App\Http\Controllers\Admin\AdminPairingController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -74,8 +75,6 @@ Route::post('admin/logout', [AdminLoginController::class, 'logout'])
 // Admin account
 Route::get('admin/dashboard', [AdminAccountController::class, 'dashboard'])
     ->name('admin.dashboard');
-Route::get('admin/payment-plans', [AdminAccountController::class, 'paymentPlans'])
-    ->name('admin.payment-plans');
 Route::get('admin/manage-users', [AdminAccountController::class, 'manageUsers'])
     ->name('admin.manage-users');
 Route::post('admin/approve-user/{id}', [AdminAccountController::class, 'approveUser'])
@@ -84,10 +83,20 @@ Route::delete('admin/delete-user/{id}', [AdminAccountController::class, 'deleteU
     ->name('admin.delete-user');
 Route::get('admin/market-place', [AdminAccountController::class, 'marketPlace'])
     ->name('admin.market-place');
-Route::get('admin/pairings', [AdminAccountController::class, 'pairings'])
-    ->name('admin.pairings');
 Route::get('admin/account-settings', [AdminAccountController::class, 'accountSettings'])
     ->name('admin.account-settings');
+
+// Admin Payments
+Route::get('admin/payment-plans', [AdminAccountController::class, 'paymentPlans'])
+    ->name('admin.payment-plans');
+Route::get('admin/manage-payments', [AdminAccountController::class, 'managePayments'])
+    ->name('admin.manage-payments');
+
+// Admin pairing
+Route::get('admin/pairings', [AdminPairingController::class, 'pairings'])
+    ->name('admin.pairings');
+Route::post('admin/pair-users', [AdminPairingController::class, 'pairUsers'])
+    ->name('admin.pair-users');
 
 
 //Github Deployment

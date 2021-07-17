@@ -24,9 +24,9 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="text-success">Total Users</span>
-                                            <h5 class="mb-1">0 </h5>
+                                            <h5 class="mb-1">{{ $count['users'] }} </h5>
                                             <span class="text-success">Approved</span>
-                                            <h5 class="mb-1">0 </h5>
+                                            <h5 class="mb-1">{{ $count['approved-users'] }} </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -42,9 +42,9 @@
                                     <div class="row">
                                         <div class="col">
                                             <span class="text-white">Number of Investments</span>
-                                            <h5 class="text-white mb-1">0</h5>
+                                            <h5 class="text-white mb-1">{{ $count['payments'] }}</h5>
                                             <span class="text-white">Number of Completed Investments</span>
-                                            <h5 class="text-white mb-1">0</h5>
+                                            <h5 class="text-white mb-1">{{ $count['completed-payments'] }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -60,9 +60,9 @@
                                     <div class="row">
                                         <div class="col text-white">
                                             <span>Total Investments</span>
-                                            <h5 class="text-white mb-1">0</h5>
+                                            <h5 class="text-white mb-1">{{ number_format($total['payments']) }}</h5>
                                             <span>Total Completed Investments</span>
-                                            <h5 class="text-white mb-1">0</h5>
+                                            <h5 class="text-white mb-1">{{ number_format($total['completed-payments']) }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -72,6 +72,44 @@
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Pair Users</h4>
+                        </div>
+                        <div class="card-body">
+                            @include('includes.alerts')
+                            <div class="basic-form">
+                                <form method="post" action="{{ route('admin.pair-users') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Select Payer:</label>
+                                        <select class="form-control mb-4" name="payer_id" id="sel1" required>
+                                            @foreach($payers as $pay)
+                                                <option value="{{ $pay->id }}">{{ $pay->name }} (Investment: {{ number_format($pay->pendingPayment->amount) }})</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label>Select Receiver:</label>
+                                        <select class="form-control mb-4" name="receiver_id" id="sel1" required>
+                                            @foreach($receivers as $rec)
+                                                <option value="{{ $rec->id }}">{{ $rec->name }} (Balance: {{ number_format($rec->pendingReturn->balance) }})</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label>Time Limit (Hours):</label>
+                                        <input type="number" class="form-control mb-4" name="time_limit" value="" required>
+
+                                        <button type="submit" class="btn btn-primary">Pair</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -138,6 +176,160 @@
                                                 </form>
                                             </div>
                                         </td>
+                                    </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Recent Payments</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-responsive-md">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:50px;">
+                                            <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="checkAll" required="">
+                                                <label class="custom-control-label" for="checkAll"></label>
+                                            </div>
+                                        </th>
+                                        <th><strong>NAME</strong></th>
+                                        <th><strong>Contact</strong></th>
+                                        <th><strong>Amount/Balance</strong></th>
+                                        <th><strong>Status</strong></th>
+                                        <th><strong>Date</strong></th>
+{{--                                        <th><strong>Action</strong></th>--}}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($payments as $item)
+                                        <tr>
+                                            <td>
+                                                <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                                                    <input type="checkbox" class="custom-control-input" id="customCheckBox2" required="">
+                                                    <label class="custom-control-label" for="customCheckBox2"></label>
+                                                </div>
+                                            </td>
+                                            <td>{{ $item->user->name }}</td>
+                                            <td>
+                                                <strong>Email:</strong> {{ $item->user->email }}<br>
+                                                <strong>Mobile:</strong> {{ $item->user->mobile }}
+                                            </td>
+                                            <td>
+                                                <strong>Invested:</strong> {{ $item->amount }}<br>
+                                                <strong>Balance:</strong> {{ $item->balance }}<br>
+                                            </td>
+                                            <td>
+                                                <strong>Paid:</strong> {{ $item->approved ? 'Yes' : 'No' }}<br>
+                                                <strong>Completed returns:</strong> {{ $item->completed_returns ? 'Yes' : 'No' }}<br>
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y') }}</td>
+{{--                                            <td>--}}
+{{--                                                <div class="">--}}
+{{--                                                    <form method="post" action="{{ route('admin.approve-user', $user->id) }}">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <button class="btn btn-primary shadow btn-xs mb-1">--}}
+{{--                                                            {{ $user->approved ? 'un-approve' : 'approve' }}</button>--}}
+{{--                                                    </form>--}}
+{{--                                                    <form method="post" action="{{ route('admin.delete-user', $user->id) }}">--}}
+{{--                                                        @csrf--}}
+{{--                                                        <button class="btn btn-danger shadow btn-xs">Delete</button>--}}
+{{--                                                    </form>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
+                                        </tr>
+                                    @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Recent Pairings</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-responsive-md">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:50px;">
+                                            <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="checkAll" required="">
+                                                <label class="custom-control-label" for="checkAll"></label>
+                                            </div>
+                                        </th>
+                                        <th><strong>Name</strong></th>
+                                        <th><strong>Amount</strong></th>
+                                        <th><strong>Proof of payment</strong></th>
+                                        <th><strong>Time limit</strong></th>
+                                        <th><strong>Status</strong></th>
+                                        <th><strong>Date</strong></th>
+{{--                                        <th><strong>Action</strong></th>--}}
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($pairings as $item)
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                                                <input type="checkbox" class="custom-control-input" id="customCheckBox2" required="">
+                                                <label class="custom-control-label" for="customCheckBox2"></label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <strong>Payer:</strong> {{ $item->payer->name }}<br>
+                                            <strong>Payer Email:</strong> {{ $item->payer->email }}<br>
+                                            <strong>Receiver:</strong> {{ $item->receiver->name ?? '' }}<br>
+                                            <strong>Receiver Email:</strong> {{ $item->receiver->email ?? '' }}<br>
+                                        </td>
+                                        <td>
+                                            <strong>Amount:</strong> {{ $item->amount }}
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->proof_of_payment))
+                                            <img src="{{ asset('photos/proof-of-payment/'.$item->proof_of_payment) }}"/>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $item->time_limit }} Hours
+                                        </td>
+                                        <td>
+                                            {{ $item->approved ? 'Paid' : 'Pending' }}
+                                        </td>
+                                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y') }}</td>
+{{--                                        <td>--}}
+{{--                                            <div class="">--}}
+{{--                                                <form method="post" action="{{ route('admin.approve-user', $user->id) }}">--}}
+{{--                                                    @csrf--}}
+{{--                                                    <button class="btn btn-primary shadow btn-xs mb-1">--}}
+{{--                                                        {{ $user->approved ? 'un-approve' : 'approve' }}</button>--}}
+{{--                                                </form>--}}
+{{--                                                <form method="post" action="{{ route('admin.delete-user', $user->id) }}">--}}
+{{--                                                    @csrf--}}
+{{--                                                    <button class="btn btn-danger shadow btn-xs">Delete</button>--}}
+{{--                                                </form>--}}
+{{--                                            </div>--}}
+{{--                                        </td>--}}
                                     </tr>
                                     @endforeach
 
