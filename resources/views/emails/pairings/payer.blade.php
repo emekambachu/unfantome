@@ -3,7 +3,7 @@
 <h3>Dear {{ $payer_name }},</h3>
 
 <p>
-    You've been matched to pay {{ $receiver_name }} {{ $amount }} in {{ $time_limit }} hours.<br><br>
+    You've been matched to pay {{ $receiver_name }} CFA {{ number_format($amount) }} in {{ $time_limit }} hours.<br><br>
 
     You can contact them via {{ $receiver_email }} or {{ $receiver_mobile }}<br>
 

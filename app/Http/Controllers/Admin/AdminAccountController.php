@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Pairing;
 use App\Models\Payment;
 use App\Models\PaymentPlan;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class AdminAccountController extends Controller
 {
@@ -48,7 +53,7 @@ class AdminAccountController extends Controller
         $count['users'] = $getUsers->count();
         $count['approved-users'] = $getUsers->count();
 
-        return view('admin.account.manage-users', compact('users'));
+        return view('admin.account.manage-users', compact('users', 'count'));
     }
 
     public function approveUser($id){
@@ -72,13 +77,20 @@ class AdminAccountController extends Controller
         return view('admin.account.manage-payments', compact('payments', 'count', 'total'));
     }
 
-    public function paymentPlans(){
+    public function accountSettings(){
 
-        return view('admin.account.payment-plans.index');
+        return view('admin.account.account-settings');
     }
 
-    public function marketPlace(){
+    public function updateAccountSettings(Request $request){
 
-        return view('admin.account.market-place.index');
+        $input = $request->except('_token');
+
+        $input['password'] = !empty($input['password']) ? bcrypt($input['password']) : Auth::user()->password;
+
+        Admin::where('id', Auth::user()->id)->update($input);
+
+        Session::flash('success', 'Account updated');
+        return redirect()->back();
     }
 }

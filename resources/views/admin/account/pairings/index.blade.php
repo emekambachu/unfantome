@@ -15,6 +15,44 @@
         <div class="container-fluid">
 
             <div class="row">
+                <div class="col-xl-6 col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Pair Users</h4>
+                        </div>
+                        <div class="card-body">
+                            @include('includes.alerts')
+                            <div class="basic-form">
+                                <form method="post" action="{{ route('admin.pair-users') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Select Payer:</label>
+                                        <select class="form-control mb-4" name="payer_id" id="sel1" required>
+                                            @foreach($payers as $pay)
+                                                <option value="{{ $pay->id }}">{{ $pay->name }} (Investment: {{ number_format($pay->pendingPayment->amount) }})</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label>Select Receiver:</label>
+                                        <select class="form-control mb-4" name="receiver_id" id="sel1" required>
+                                            @foreach($receivers as $rec)
+                                                <option value="{{ $rec->id }}">{{ $rec->name }} (Balance: {{ number_format($rec->pendingReturn->balance) }})</option>
+                                            @endforeach
+                                        </select>
+
+                                        <label>Time Limit (Hours):</label>
+                                        <input type="number" class="form-control mb-4" name="time_limit" value="" required>
+
+                                        <button type="submit" class="btn btn-primary">Pair</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">

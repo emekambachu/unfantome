@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAccountController;
+use App\Http\Controllers\Admin\AdminMarketPlaceController;
 use App\Http\Controllers\Admin\AdminPairingController;
+use App\Http\Controllers\Admin\AdminPaymentPlanController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GithubDeploymentController;
 use App\Http\Controllers\Members\MemberAccountController;
+use App\Models\PaymentPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+
+    $paymentPlans = PaymentPlan::all();
+    return view('home', compact('paymentPlans'));
 });
 
 Route::get('about', function () {
@@ -81,16 +86,30 @@ Route::post('admin/approve-user/{id}', [AdminAccountController::class, 'approveU
     ->name('admin.approve-user');
 Route::delete('admin/delete-user/{id}', [AdminAccountController::class, 'deleteUser'])
     ->name('admin.delete-user');
-Route::get('admin/market-place', [AdminAccountController::class, 'marketPlace'])
-    ->name('admin.market-place');
-Route::get('admin/account-settings', [AdminAccountController::class, 'accountSettings'])
-    ->name('admin.account-settings');
-
-// Admin Payments
-Route::get('admin/payment-plans', [AdminAccountController::class, 'paymentPlans'])
-    ->name('admin.payment-plans');
 Route::get('admin/manage-payments', [AdminAccountController::class, 'managePayments'])
     ->name('admin.manage-payments');
+Route::get('admin/account-settings', [AdminAccountController::class, 'accountSettings'])
+    ->name('admin.account-settings');
+Route::post('admin/account-settings/update', [AdminAccountController::class, 'updateAccountSettings'])
+    ->name('admin.account-settings.update');
+
+// Admin Payment Plans
+Route::get('admin/payment-plans', [AdminPaymentPlanController::class, 'index'])
+    ->name('admin.payment-plans');
+Route::post('admin/payment-plan/store', [AdminPaymentPlanController::class, 'storePaymentPlan'])
+    ->name('admin.payment-plan.store');
+Route::get('admin/payment-plan/edit/{id}', [AdminPaymentPlanController::class, 'editPaymentPlan'])
+    ->name('admin.payment-plan.edit');
+Route::put('admin/payment-plan/update/{id}', [AdminPaymentPlanController::class, 'updatePaymentPlan'])
+    ->name('admin.payment-plan.update');
+Route::delete('admin/payment-plan/delete/{id}', [AdminPaymentPlanController::class, 'deletePaymentPlan'])
+    ->name('admin.payment-plan.delete');
+
+// Admin Market Place
+Route::get('admin/market-place', [AdminMarketPlaceController::class, 'index'])
+    ->name('admin.market-place');
+Route::get('admin/market-place/delete/{id}', [AdminAccountController::class, 'deleteProduct'])
+    ->name('admin.market-place.delete-product');
 
 // Admin pairing
 Route::get('admin/pairings', [AdminPairingController::class, 'pairings'])

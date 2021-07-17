@@ -110,28 +110,31 @@
             </div>
 
             <div class="row">
+                @foreach($paymentPlans as $plan)
                 <div class="col-md-6 col-lg-6 mb-4">
                     <!-- Icon box -->
                     <div class="icon-box text-center p-5 border border-variant-soft rounded-custom bg-white shadow-soft">
                         <div class="card-icon mb-4">
                             <img src="{{ asset('assets/img/icon/icon-8.svg') }}" alt="icon" class="img-fluid" width="60">
                         </div>
-                        <h2 class="h5">Earn 50% in 7 days</h2>
-                        <h2 class="h6">5000 CFA to 900,000 CFA</h2>
+                        <h2 class="h5">Earn {{ $plan->percentage }}% in {{ $plan->days }} days</h2>
+                        <h2 class="h6">{{ number_format($plan->min) }} CFA to {{ number_format($plan->max )}} CFA</h2>
                     </div>
                     <!-- End of Icon box -->
                 </div>
-                <div class="col-md-6 col-lg-6 mb-4">
-                    <!-- Icon box -->
-                    <div class="icon-box text-center p-5 border border-variant-soft rounded-custom bg-white shadow-soft">
-                        <div class="card-icon mb-4">
-                            <img src="{{ asset('assets/img/icon/icon-8.svg') }}" alt="icon" class="img-fluid" width="60">
-                        </div>
-                        <h2 class="h5">Earn 100% in 7 days</h2>
-                        <h2 class="h6">1million CFA to 3million CFA</h2>
-                    </div>
-                    <!-- End of Icon box -->
-                </div>
+                @endforeach
+
+{{--                <div class="col-md-6 col-lg-6 mb-4">--}}
+{{--                    <!-- Icon box -->--}}
+{{--                    <div class="icon-box text-center p-5 border border-variant-soft rounded-custom bg-white shadow-soft">--}}
+{{--                        <div class="card-icon mb-4">--}}
+{{--                            <img src="{{ asset('assets/img/icon/icon-8.svg') }}" alt="icon" class="img-fluid" width="60">--}}
+{{--                        </div>--}}
+{{--                        <h2 class="h5">Earn 100% in 7 days</h2>--}}
+{{--                        <h2 class="h6">1million CFA to 3million CFA</h2>--}}
+{{--                    </div>--}}
+{{--                    <!-- End of Icon box -->--}}
+{{--                </div>--}}
             </div>
         </div>
     </section>
