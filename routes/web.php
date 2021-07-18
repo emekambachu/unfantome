@@ -62,6 +62,10 @@ Route::post('member/make-payment', [MemberAccountController::class, 'makePayment
     ->name('member.make-payment');
 Route::get('member/all-payments', [MemberAccountController::class, 'allPayments'])
     ->name('member.all-payments');
+Route::post('member/confirm-payment/{id}', [MemberAccountController::class, 'confirmPayment'])
+    ->name('member.confirm-payment');
+Route::post('member/approve-payment/{id}', [MemberAccountController::class, 'approvePayment'])
+    ->name('member.approve-payment');
 Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'])
     ->name('member.market-place');
 Route::get('member/account-settings', [MemberAccountController::class, 'accountSettings'])

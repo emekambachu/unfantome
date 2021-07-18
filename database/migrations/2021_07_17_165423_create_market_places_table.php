@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePairingsTable extends Migration
+class CreateMarketPlacesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreatePairingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pairings', function (Blueprint $table) {
+        Schema::create('market_places', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('payer_id')->unsigned();
-            $table->bigInteger('receiver_id')->unsigned();
-            $table->integer('amount');
-            $table->text('proof_of_payment');
-            $table->boolean('confirm_payment')->default(0);
+            $table->bigInteger('user_id');
+            $table->string('name');
+            $table->integer('price');
+            $table->text('image');
+            $table->text('image_two')->nullable();
+            $table->text('image_three')->nullable();
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });
@@ -32,6 +33,6 @@ class CreatePairingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pairings');
+        Schema::dropIfExists('market_places');
     }
 }

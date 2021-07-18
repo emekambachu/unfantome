@@ -97,6 +97,37 @@
                         </div>
                     </div>
                 </div>
+
+                @if($payer)
+                <div class="col-xl-6 col-lg-6 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">You have been paired to pay {{ $payer->receiver->name }}</h4>
+                            <h6 id="countdown" class="card-title text-success"></h6>
+                            <h6 class="card-title">Contact them via</h6>
+                            <p><strong>Email:</strong> {{ $receiver->receiver->email }}</p>
+                            <p><strong>Mobile:</strong> {{ $receiver->receiver->mobile }}</p>
+                            <p>Once you have made payment, upload a screenshot of the payment and click "CONFIRM PAYMENT" </p>
+                            <p class="font-medium text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</p>
+                        </div>
+                        <div class="card-body">
+                            @include('includes.alerts')
+                            <div class="basic-form">
+                                <form method="post" action="">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Proof of payment (jpg, jpeg, png):</label>
+                                        <input class="form-control" type="file" name="proof_of_payment" required>
+
+                                        <button type="submit" class="btn btn-primary">I have paid</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
             </div>
 
             <div class="row">
@@ -168,5 +199,28 @@
 @endsection
 
 @section('bottom-assets')
+    <script>
+        let h = {{ $payer->time_limit }};
+        // Convert hours to seconds first
+        var count = (h * 60) * 60;
+        var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+
+        function timer() {
+            count = count - 1;
+            if (count === -1) {
+                clearInterval(counter);
+                return;
+            }
+
+            var seconds = count % 60;
+            var minutes = Math.floor(count / 60);
+            var hours = Math.floor(minutes / 60);
+            minutes %= 60;
+            hours %= 60;
+
+            document.getElementById("countdown").innerHTML = hours + " hours " + minutes + " minutes and " + seconds + " seconds";
+        }
+    </script>
+
     <script src="{{ asset('auth/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 @endsection

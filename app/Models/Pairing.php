@@ -13,6 +13,7 @@ class Pairing extends Model
         'amount',
         'proof_of_payment',
         'time_limit',
+        'confirm_payment',
         'approved',
     ];
 

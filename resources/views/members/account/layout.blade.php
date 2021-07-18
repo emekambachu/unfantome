@@ -269,9 +269,9 @@
                 </li>
 
                 <li>
-                    <a class="ai-icon" href="{{ route('member.make-payment') }}" aria-expanded="false">
+                    <a class="ai-icon" href="{{ route('member.all-payments') }}" aria-expanded="false">
                         <i class="fa fa-money"></i>
-                        <span class="nav-text">Make Payment</span>
+                        <span class="nav-text">Investments</span>
                     </a>
                 </li>
 
@@ -374,7 +374,7 @@
         "use strict"
 
         var direction =  getUrlParams('dir');
-        if(direction != 'rtl')
+        if(direction !== 'rtl')
         {direction = 'ltr'; }
 
         new dezSettings({
