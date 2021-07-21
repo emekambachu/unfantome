@@ -7,6 +7,7 @@ use App\Models\Pairing;
 use App\Models\Payment;
 use App\Models\PaymentPlan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -45,18 +46,41 @@ class MemberAccountController extends Controller
 
         $paired = Pairing::with('payer', 'receiver');
 
+        // Get time limit from any pairing that is pending
+        $getTimeLimit = $paired->where('approved', 0)
+            ->where('payer_id', Auth::user()->id)
+            ->orWhere('receiver_id', Auth::user()->id)
+            ->first();
+
+        // Convert time limit to seconds
+        $timeLimit = $getTimeLimit ? $getTimeLimit->time_limit * 3600 : null;
+
+        // Get Payer details
         $payer = $paired->where([
             ['payer_id', Auth::user()->id],
             ['approved', 0],
         ])->first();
 
+        // get receiver details
         $receiver = $paired->where([
             ['payer_id', Auth::user()->id],
             ['approved', 0],
         ])->first();
 
+        // Get current time, deduct it from the pairing created and convert to seconds and hours
+        $now = Carbon::now();
+        $created_at = Carbon::parse($getTimeLimit->created_at);
+        $getHours = $created_at->diffInHours($now);  // convert to hours
+        $getSeconds = $created_at->diffInSeconds($now);  // convert to Seconds
+
+//        if($receiver){
+//            $created_at = Carbon::parse($receiver->created_at);
+//            $getHours = $created_at->diffInHours($now);  // convert to hours
+//            $getMinutes = $created_at->diffInMinutes($now);  // convert to Minutes
+//        }
+
         return view('members.account.dashboard',
-            compact('paymentPlans', 'currentPayment', 'payer', 'receiver'));
+            compact('paymentPlans', 'currentPayment', 'payer', 'receiver', 'getHours', 'getSeconds', 'timeLimit'));
     }
 
     public function makePayment(Request $request){
@@ -175,6 +199,35 @@ class MemberAccountController extends Controller
             Session::flash('warning', 'This pairing does not exist');
             return redirect()->back()->withInput();
         }
+
+        $data = [
+            'payer_email' => $pairing->payer->email,
+            'payer_name' => $pairing->payer->name,
+            'receiver_email' => $pairing->receiver->email,
+            'receiver_name' => $pairing->receiver->name,
+            'amount' => $pairing->amount,
+        ];
+
+        // Send Email to registered User
+        Mail::send('emails.members.cancelled-payment', $data, static function ($message) use ($data) {
+            $message->from('info@unfantome.com', 'Unfantome');
+            $message->to($data['receiver_email'], $data['receiver_name']);
+            $message->replyTo('info@unfantome.com', 'Unfantome');
+            $message->subject($data['payer_name'].' has cancelled this payment');
+        });
+
+        // Send to email
+        Mail::send('emails.members.cancelled-payment-admin', $data, static function ($message) use ($data) {
+            $message->from('info@unfantome.com', 'Unfantome');
+            $message->to($data['receiver_email'], $data['receiver_name']);
+            $message->replyTo('info@unfantome.com', 'Unfantome');
+            $message->subject($data['payer_name'].' has cancelled this payment');
+        });
+
+        $pairing->delete();
+
+        Session::flash('success', 'This payment has been cancelled');
+        return redirect()->back()->withInput();
 
     }
 

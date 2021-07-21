@@ -103,9 +103,15 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">You have been paired to pay {{ $payer->receiver->name }}</h4>
+                        </div>
+                        <div class="p-2">
+                            @if($timeLimit > $getSeconds)
                             <h6 id="countdown" class="card-title text-success"></h6>
-                            <h6 class="card-title">Contact them via</h6>
-                            <p><strong>Email:</strong> {{ $receiver->receiver->email }}</p>
+                            @else
+                            <h6 class="card-title text-danger">Your time has expired</h6>
+                            @endif
+                            <p><strong>Contact them via</strong><br>
+                            <p><strong>Email:</strong> {{ $receiver->receiver->email }}<br>
                             <p><strong>Mobile:</strong> {{ $receiver->receiver->mobile }}</p>
                             <p>Once you have made payment, upload a screenshot of the payment and click "CONFIRM PAYMENT" </p>
                             <p class="font-medium text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</p>
@@ -200,9 +206,8 @@
 
 @section('bottom-assets')
     <script>
-        let h = {{ $payer->time_limit }};
-        // Convert hours to seconds first
-        var count = (h * 60) * 60;
+        // Get time limit and
+        var count = {{ $timeLimit - $getSeconds }};
         var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
 
         function timer() {
