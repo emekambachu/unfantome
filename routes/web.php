@@ -58,20 +58,24 @@ Route::get('member/logout', [LoginController::class, 'logout'])->name('member.lo
 // Member account
 Route::get('member/dashboard', [MemberAccountController::class, 'dashboard'])
     ->name('member.dashboard');
-Route::post('member/make-payment', [MemberAccountController::class, 'makePayment'])
-    ->name('member.make-payment');
-Route::get('member/all-payments', [MemberAccountController::class, 'allPayments'])
-    ->name('member.all-payments');
-Route::post('member/confirm-payment/{id}', [MemberAccountController::class, 'confirmPayment'])
-    ->name('member.confirm-payment');
-Route::post('member/approve-payment/{id}', [MemberAccountController::class, 'approvePayment'])
-    ->name('member.approve-payment');
 Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'])
     ->name('member.market-place');
 Route::get('member/account-settings', [MemberAccountController::class, 'accountSettings'])
     ->name('member.account-settings');
 Route::post('member/account-settings/update', [MemberAccountController::class, 'updateAccountSettings'])
     ->name('member.account-settings.update');
+
+// Member Payments
+Route::post('member/make-payment', [MemberAccountController::class, 'makePayment'])
+    ->name('member.make-payment');
+Route::get('member/all-payments', [MemberAccountController::class, 'allPayments'])
+    ->name('member.all-payments');
+Route::post('member/cancel-payment/{id}', [MemberAccountController::class, 'cancelPayment'])
+    ->name('member.cancel-payment');
+Route::post('member/confirm-payment/{id}', [MemberAccountController::class, 'confirmPayment'])
+    ->name('member.confirm-payment');
+Route::post('member/approve-payment/{id}', [MemberAccountController::class, 'approvePayment'])
+    ->name('member.approve-payment');
 
 // Admin login and logout
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])

@@ -21,6 +21,7 @@ class CreatePairingsTable extends Migration
             $table->text('proof_of_payment');
             $table->boolean('confirm_payment')->default(0);
             $table->boolean('approved')->default(0);
+            $table->boolean('cancelled')->default(0);
             $table->timestamps();
         });
     }

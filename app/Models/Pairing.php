@@ -15,6 +15,7 @@ class Pairing extends Model
         'time_limit',
         'confirm_payment',
         'approved',
+        'cancelled',
     ];
 
     public function payer(){

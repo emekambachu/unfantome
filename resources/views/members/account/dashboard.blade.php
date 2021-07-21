@@ -70,13 +70,15 @@
             </div>
 
             <div class="row">
+                <div class="col-md-12">
+                    @include('includes.alerts')
+                </div>
                 <div class="col-xl-6 col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Invest</h4>
                         </div>
                         <div class="card-body">
-                            @include('includes.alerts')
                             <div class="basic-form">
                                 <form method="post" action="{{ route('member.make-payment') }}">
                                     @csrf
@@ -111,27 +113,73 @@
                             <h6 class="card-title text-danger">Your time has expired</h6>
                             @endif
                             <p><strong>Contact them via</strong><br>
-                            <p><strong>Email:</strong> {{ $receiver->receiver->email }}<br>
-                            <p><strong>Mobile:</strong> {{ $receiver->receiver->mobile }}</p>
-                            <p>Once you have made payment, upload a screenshot of the payment and click "CONFIRM PAYMENT" </p>
+                            <p><strong>Email:</strong> {{ $payer->receiver->email }}<br>
+                            <p><strong>Mobile:</strong> {{ $payer->receiver->mobile }}</p>
+                            <p class="font-weight-bolder">Once you have made payment, upload a screenshot of the payment and click "I HAVE PAID"</p>
                             <p class="font-medium text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</p>
                         </div>
                         <div class="card-body">
                             @include('includes.alerts')
                             <div class="basic-form">
-                                <form method="post" action="">
+                                <form method="post" action="{{ route('member.confirm-payment', $payer->id) }}">
                                     @csrf
                                     <div class="form-group">
                                         <label>Proof of payment (jpg, jpeg, png):</label>
-                                        <input class="form-control" type="file" name="proof_of_payment" required>
+                                        <input class="form-control mb-2" type="file" name="proof_of_payment" required>
 
                                         <button type="submit" class="btn btn-primary">I have paid</button>
+                                    </div>
+                                </form>
+
+                                <form method="post" action="{{ route('member.cancel-payment', $payer->id) }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger">I'm unable to pay</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endif
+
+                @if($receiver)
+                    <div class="col-xl-6 col-lg-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">You have been paired to receive {{ $receiver->amount }} from {{ $receiver->payer->name }}</h4>
+                            </div>
+                            <div class="p-2">
+                                @if($timeLimit > $getSeconds)
+                                    <h6 id="countdown" class="card-title text-success"></h6>
+                                @else
+                                    <h6 class="card-title text-danger">Their time has expired</h6>
+                                @endif
+                                <p><strong>Contact them via</strong><br>
+                                <p><strong>Email:</strong> {{ $receiver->payer->email }}<br>
+                                <p><strong>Mobile:</strong> {{ $receiver->payer->mobile }}</p>
+                            </div>
+
+                            @if($receiver->confirm_payment === 1)
+                                <p class="font-weight-bolder">Your receiver confirmed that they have paid you your money, please click on "I HAVE RECEIVED MY MONEY"</p>
+                                <p class="font-medium text-danger">NOTE: If you don't approve receipt, we will assume you have not been paid</p>
+                            <img src="{{ asset('photos/proof-of-payment/'.$receiver->proof_of_payment) }}" width="300"/>
+                            <div class="card-body">
+
+                                @include('includes.alerts')
+                                <div class="basic-form">
+                                    <form method="post" action="{{ route('member.approve-payment', $receiver->id) }}">
+                                        @csrf
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">I have paid</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            @endif
+
+                        </div>
+                    </div>
                 @endif
 
             </div>

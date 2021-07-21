@@ -59,12 +59,13 @@ class MemberAccountController extends Controller
         $payer = $paired->where([
             ['payer_id', Auth::user()->id],
             ['approved', 0],
+            ['cancelled', 0],
         ])->first();
 
         // get receiver details
         $receiver = $paired->where([
             ['payer_id', Auth::user()->id],
-            ['approved', 0],
+            ['cancelled', 0],
         ])->first();
 
         // Get current time, deduct it from the pairing created and convert to seconds and hours
@@ -163,7 +164,7 @@ class MemberAccountController extends Controller
             $image = $name;
         }
 
-        $pairing->image = $image;
+        $pairing->proof_of_payment = $image;
         $pairing->confirm_payment = 1;
         $pairing->save();
 
@@ -200,6 +201,9 @@ class MemberAccountController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $pairing->cancelled = 1;
+        $pairing->save();
+
         $data = [
             'payer_email' => $pairing->payer->email,
             'payer_name' => $pairing->payer->name,
@@ -216,15 +220,13 @@ class MemberAccountController extends Controller
             $message->subject($data['payer_name'].' has cancelled this payment');
         });
 
-        // Send to email
+        // Send to admin
         Mail::send('emails.members.cancelled-payment-admin', $data, static function ($message) use ($data) {
             $message->from('info@unfantome.com', 'Unfantome');
-            $message->to($data['receiver_email'], $data['receiver_name']);
+            $message->to('info@unfantome.com', 'Unfantome');
             $message->replyTo('info@unfantome.com', 'Unfantome');
             $message->subject($data['payer_name'].' has cancelled this payment');
         });
-
-        $pairing->delete();
 
         Session::flash('success', 'This payment has been cancelled');
         return redirect()->back()->withInput();
@@ -232,6 +234,39 @@ class MemberAccountController extends Controller
     }
 
     public function approvePayment($id){
+
+        $pairing = Pairing::with('payer', 'receiver')
+            ->where([
+                ['id', $id],
+                ['receiver_id', Auth::user()->id],
+            ])->first();
+
+        if(!$pairing){
+            Session::flash('warning', 'Wrong User');
+            return redirect()->back()->withInput();
+        }
+
+        // approve pairing
+        $pairing->approved = 1;
+        $pairing->save();
+
+        // Get payer Payment
+        $payerPayment = Payment::where('user_id', $pairing->payer_id)->where('approved', 0)->first();
+        // Approve payer's payment
+        $payerPayment->approved = 1;
+        $payerPayment->save();
+
+        // Get receiver Payment and deduct the pairing amount
+        $receiverPayment = Payment::where('user_id', $pairing->receiver_id)->first();
+        $receiverPayment->balance -= $pairing->amount;
+        // if balance is finally zero, this receiver has completed his returns
+        if($receiverPayment->balance === 0 || $receiverPayment->balance === null){
+            $receiverPayment->completed_returns = 1;
+        }
+        $receiverPayment->save();
+
+        Session::flash('success', 'Payment Approved');
+        return redirect()->back()->withInput();
 
     }
 
