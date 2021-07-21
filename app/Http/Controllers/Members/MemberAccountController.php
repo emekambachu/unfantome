@@ -56,23 +56,31 @@ class MemberAccountController extends Controller
         $timeLimit = $getTimeLimit ? $getTimeLimit->time_limit * 3600 : null;
 
         // Get Payer details
-        $payer = $paired->where([
+        $payer = Pairing::with('payer', 'receiver')->where([
             ['payer_id', Auth::user()->id],
             ['approved', 0],
             ['cancelled', 0],
         ])->first();
 
         // get receiver details
-        $receiver = $paired->where([
-            ['payer_id', Auth::user()->id],
+        $receiver = Pairing::with('payer', 'receiver')->where([
+            ['receiver_id', Auth::user()->id],
+            ['approved', 0],
             ['cancelled', 0],
         ])->first();
 
         // Get current time, deduct it from the pairing created and convert to seconds and hours
         $now = Carbon::now();
-        $created_at = Carbon::parse($getTimeLimit->created_at);
-        $getHours = $created_at->diffInHours($now);  // convert to hours
-        $getSeconds = $created_at->diffInSeconds($now);  // convert to Seconds
+        if($payer|| $receiver){
+            $created_at = Carbon::parse($getTimeLimit->created_at);
+            $getHours = $created_at->diffInHours($now);  // convert to hours
+            $getSeconds = $created_at->diffInSeconds($now);  // convert to Seconds
+        }else{
+            $created_at = 0;
+            $getHours = 0;
+            $getSeconds = 0;
+        }
+//        $created_at = Carbon::parse($getTimeLimit->created_at);
 
 //        if($receiver){
 //            $created_at = Carbon::parse($receiver->created_at);
@@ -116,7 +124,7 @@ class MemberAccountController extends Controller
         return view('members.account.all-payments');
     }
 
-    public function confirmPayment($id, $request){
+    public function confirmPayment($id, Request $request){
 
         $pairing = Pairing::with('payer', 'receiver')
             ->where([
@@ -130,10 +138,10 @@ class MemberAccountController extends Controller
         }
 
         $request->validate([
-            'image' => 'required|mimes:jpg,jpeg,png|image|max:5048',
+            'proof_of_payment' => 'required|mimes:jpg,jpeg,png|image|max:5048',
         ]);
 
-        if($file = $request->file('image')){
+        if($file = $request->file('proof_of_payment')){
 
             // path for converted image
             $converted_path = 'photos/proof-of-payment';
@@ -268,11 +276,6 @@ class MemberAccountController extends Controller
         Session::flash('success', 'Payment Approved');
         return redirect()->back()->withInput();
 
-    }
-
-    public function marketPlace(){
-
-        return view('members.account.market-place.index');
     }
 
     public function accountSettings(){

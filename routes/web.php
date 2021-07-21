@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\GithubDeploymentController;
 use App\Http\Controllers\Members\MemberAccountController;
+use App\Http\Controllers\Members\MemberMarketPlaceController;
 use App\Models\PaymentPlan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,8 +59,6 @@ Route::get('member/logout', [LoginController::class, 'logout'])->name('member.lo
 // Member account
 Route::get('member/dashboard', [MemberAccountController::class, 'dashboard'])
     ->name('member.dashboard');
-Route::get('member/market-place', [MemberAccountController::class, 'marketPlace'])
-    ->name('member.market-place');
 Route::get('member/account-settings', [MemberAccountController::class, 'accountSettings'])
     ->name('member.account-settings');
 Route::post('member/account-settings/update', [MemberAccountController::class, 'updateAccountSettings'])
@@ -77,12 +76,30 @@ Route::post('member/confirm-payment/{id}', [MemberAccountController::class, 'con
 Route::post('member/approve-payment/{id}', [MemberAccountController::class, 'approvePayment'])
     ->name('member.approve-payment');
 
+// Member Marketplace
+Route::get('member/market-place', [MemberMarketPlaceController::class, 'index'])
+    ->name('member.market-place');
+Route::get('member/market-place/latest-products', [MemberMarketPlaceController::class, 'latestProducts'])
+    ->name('member.market-place.latest-products');
+Route::get('member/market-place/my-products', [MemberMarketPlaceController::class, 'myProducts'])
+    ->name('member.market-place.my-products');
+Route::get('member/market-place/create', [MemberMarketPlaceController::class, 'create'])
+    ->name('member.market-place.create');
+Route::post('member/market-place/store', [MemberMarketPlaceController::class, 'store'])
+    ->name('member.market-place.store');
+Route::get('member/market-place/edit/{id}', [MemberMarketPlaceController::class, 'edit'])
+    ->name('member.market-place.edit');
+Route::put('member/market-place/update/{id}', [MemberMarketPlaceController::class, 'update'])
+    ->name('member.market-place.update');
+Route::delete('member/market-place/update/{id}', [MemberMarketPlaceController::class, 'update'])
+    ->name('member.market-place.update');
+
 // Admin login and logout
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])
     ->name('admin.login-form');
 Route::post('admin/login', [AdminLoginController::class, 'login'])
     ->name('admin.login');
-Route::post('admin/logout', [AdminLoginController::class, 'logout'])
+Route::get('admin/logout', [AdminLoginController::class, 'logout'])
     ->name('admin.logout');
 
 // Admin account
