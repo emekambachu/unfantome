@@ -19,8 +19,10 @@ class AdminPairingController extends Controller
     public function pairings(){
 
         $getUsers = new User();
-        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')->get();
-        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')->get();
+        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')
+            ->where('paired', 0)->get();
+        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')
+            ->where('paired', 0)->get();
 
         $pairings = Pairing::with('payer', 'receiver')->orderBy('created_at', 'desc')
             ->paginate(20);
@@ -44,9 +46,15 @@ class AdminPairingController extends Controller
 
         Pairing::create($input);
 
-        // get payer and receiver details for email
+        // get payer details and update paired to true
         $payer = $user->findOrFail($input['payer_id']);
+        $payer->paired = 1; // true
+        $payer->save();
+
+        // Get receiver details and update paired to true
         $receiver = $user->findOrFail($input['receiver_id']);
+        $receiver->paired = 1; // true
+        $receiver->save();
 
         $data = [
             'payer_name' => $payer->name,

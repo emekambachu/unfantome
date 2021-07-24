@@ -26,6 +26,10 @@ class MemberAccountController extends Controller
         $this->middleware('auth');
     }
 
+    public function payments(){
+        return Payment::with('user')->where('user_id', Auth::user()->id);
+    }
+
     public function currentPayment(){
         return Payment::where([
             ['user_id', Auth::user()->id],
@@ -43,6 +47,9 @@ class MemberAccountController extends Controller
         $paymentPlans = PaymentPlan::all();
 
         $currentPayment = $this->currentPayment();
+
+        $payments = $this->payments();
+        $investments['total'] = $payments->first() ? $payments->sum('amount') : 0;
 
         $paired = Pairing::with('payer', 'receiver');
 
@@ -89,7 +96,7 @@ class MemberAccountController extends Controller
 //        }
 
         return view('members.account.dashboard',
-            compact('paymentPlans', 'currentPayment', 'payer', 'receiver', 'getHours', 'getSeconds', 'timeLimit'));
+            compact('paymentPlans', 'currentPayment', 'investments', 'payer', 'receiver', 'getHours', 'getSeconds', 'timeLimit'));
     }
 
     public function makePayment(Request $request){
@@ -121,7 +128,8 @@ class MemberAccountController extends Controller
 
     public function allPayments(){
 
-        return view('members.account.all-payments');
+        $payments = $this->payments()->paginate(15);
+        return view('members.account.all-payments', compact('payments'));
     }
 
     public function confirmPayment($id, Request $request){
@@ -130,6 +138,8 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['payer_id', Auth::user()->id],
+                ['confirmed_payment', 0],
+                ['approved', 0],
             ])->first();
 
         if(!$pairing){
@@ -151,7 +161,7 @@ class MemberAccountController extends Controller
             }
 
             // Add current time in seconds to file name
-            $name = Auth::user()->name.'-'.time() . $file->getClientOriginalName();
+            $fileName = Auth::user()->name.'-'.time() . $file->getClientOriginalName();
 
             // create canvas background to hold the image (Must install Image Intervention Package first)
             $background = Image::canvas(1000, 1000);
@@ -168,11 +178,10 @@ class MemberAccountController extends Controller
 
             // insert image to canvas
             $background->insert($convert_image, 'center');
-            $background->save($converted_path.'/'.$name);
-            $image = $name;
+            $background->save($converted_path.'/'.$fileName);
         }
 
-        $pairing->proof_of_payment = $image;
+        $pairing->proof_of_payment = $fileName;
         $pairing->confirm_payment = 1;
         $pairing->save();
 
@@ -192,7 +201,7 @@ class MemberAccountController extends Controller
             $message->subject($data['payer_name'].' has made payment. Confirm!!');
         });
 
-        Session::flash('success', 'You just confirmed ');
+        Session::flash('success', 'You just confirmed');
         return redirect()->back()->withInput();
     }
 
@@ -202,6 +211,8 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['payer_id', Auth::user()->id],
+                ['confirmed_payment', 0],
+                ['approved', 0],
             ])->first();
 
         if(!$pairing){
@@ -209,8 +220,14 @@ class MemberAccountController extends Controller
             return redirect()->back()->withInput();
         }
 
+        // make cancel true
         $pairing->cancelled = 1;
         $pairing->save();
+
+        // Update payer paired to 0 when they cancel payment
+        $payer = User::findOrFail($pairing->payer_id);
+        $payer->paired = 0;
+        $payer->save();
 
         $data = [
             'payer_email' => $pairing->payer->email,
@@ -247,16 +264,28 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['receiver_id', Auth::user()->id],
+                ['confirmed_payment', 1],
+                ['approved', 0],
             ])->first();
 
         if(!$pairing){
-            Session::flash('warning', 'Wrong User');
+            Session::flash('warning', 'Wrong pairing');
             return redirect()->back()->withInput();
         }
 
         // approve pairing
         $pairing->approved = 1;
         $pairing->save();
+
+        // Update payer paired to 0 when payment has been approved
+        $payer = User::findOrFail($pairing->payer_id);
+        $payer->paired = 0;
+        $payer->save();
+
+        // Update receiver paired to 0 when payment has been approved
+        $receiver = User::findOrFail($pairing->receiver_id);
+        $receiver->paired = 0;
+        $receiver->save();
 
         // Get payer Payment
         $payerPayment = Payment::where('user_id', $pairing->payer_id)->where('approved', 0)->first();
@@ -274,7 +303,7 @@ class MemberAccountController extends Controller
         $receiverPayment->save();
 
         Session::flash('success', 'Payment Approved');
-        return redirect()->back()->withInput();
+        return redirect()->back();
 
     }
 

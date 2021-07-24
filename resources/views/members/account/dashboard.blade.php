@@ -22,7 +22,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mb-1">CFA </h5>
+                                            <h5 class="mb-1">CFA {{ number_format($investments['total']) }}</h5>
                                             <span class="text-success">Total Investment</span>
                                         </div>
                                     </div>
