@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\MarketPlace;
 use App\Models\Pairing;
 use App\Models\Payment;
 use App\Models\PaymentPlan;
@@ -11,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -58,10 +60,72 @@ class AdminAccountController extends Controller
 
     public function approveUser($id){
 
+        $user = User::findOrFail($id);
+
+        if ($user->approved === 1) {
+            $user->approved = 0;
+            $email_subject = 'Your Account has been Deactivated';
+            Session::flash('warning', $user->name . ' has been deactivated');
+
+        } else {
+            $user->approved = 1;
+            $email_subject = 'Your account has been disabled';
+            Session::flash('success', $user->name . ' has been activated');
+        }
+
+        $user->save();
+
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'approved' => $user->approved,
+            'email_subject' => $email_subject,
+        ];
+
+        Mail::send('emails.members.approve-user', $data, static function ($message) use ($data) {
+            $message->from('info@unfantome.com', 'Unfantome');
+            $message->to($data['email'], $data['name']);
+            $message->replyTo('Info@unfantome.com', 'Unfantome');
+            $message->subject($data['email_subject']);
+        });
+
+        return redirect()->back();
     }
 
     public function deleteUser($id){
 
+        $user = User::findOrFail($id);
+
+        // delete image
+        if (!empty($user->image) && File::exists(public_path() . '/photos/members/' . $user->image)) {
+            FILE::delete(public_path() . '/photos/members/' . $user->image);
+        }
+
+        // delete payments
+        $payments = Payment::where('user_id', $user->id)->get();
+        $payments->delete();
+
+        // delete market place
+        $products = Marketplace::where('user_id', $user->id)->get();
+
+        foreach($products as $product){
+
+            if (!empty($product->image) && File::exists(public_path() . '/photos/market-place/' . $product->image)) {
+                FILE::delete(public_path() . '/photos/market-place/' . $product->image);
+            }
+
+            if (!empty($product->image_two) && File::exists(public_path() . '/photos/market-place/' . $product->image_two)) {
+                FILE::delete(public_path() . '/photos/market-place/' . $product->image_two);
+            }
+
+            if (!empty($product->image_three) && File::exists(public_path() . '/photos/market-place/' . $product->image_three)) {
+                FILE::delete(public_path() . '/photos/market-place/' . $product->image_three);
+            }
+
+            $product->delete();
+        }
+
+        $user->delete();
     }
 
     public function managePayments(){

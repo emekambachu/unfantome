@@ -11,6 +11,7 @@ class MarketPlace extends Model
         'user_id',
         'name',
         'price',
+        'description',
         'image',
         'image_two',
         'image_three',

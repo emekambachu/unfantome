@@ -91,8 +91,8 @@ Route::get('member/market-place/edit/{id}', [MemberMarketPlaceController::class,
     ->name('member.market-place.edit');
 Route::put('member/market-place/update/{id}', [MemberMarketPlaceController::class, 'update'])
     ->name('member.market-place.update');
-Route::delete('member/market-place/update/{id}', [MemberMarketPlaceController::class, 'update'])
-    ->name('member.market-place.update');
+Route::delete('member/market-place/delete/{id}', [MemberMarketPlaceController::class, 'delete'])
+    ->name('member.market-place.delete');
 
 // Admin login and logout
 Route::get('admin/login', [AdminLoginController::class, 'showLoginForm'])
@@ -133,7 +133,9 @@ Route::delete('admin/payment-plan/delete/{id}', [AdminPaymentPlanController::cla
 // Admin Market Place
 Route::get('admin/market-place', [AdminMarketPlaceController::class, 'index'])
     ->name('admin.market-place');
-Route::get('admin/market-place/delete/{id}', [AdminAccountController::class, 'deleteProduct'])
+Route::post('admin/market-place/approve/{id}', [AdminMarketPlaceController::class, 'approve'])
+    ->name('admin.market-place.approve');
+Route::delete('admin/market-place/delete/{id}', [AdminAccountController::class, 'deleteProduct'])
     ->name('admin.market-place.delete-product');
 
 // Admin pairing

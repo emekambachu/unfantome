@@ -18,6 +18,7 @@ class CreateMarketPlacesTable extends Migration
             $table->bigInteger('user_id');
             $table->string('name');
             $table->integer('price');
+            $table->text('description');
             $table->text('image');
             $table->text('image_two')->nullable();
             $table->text('image_three')->nullable();

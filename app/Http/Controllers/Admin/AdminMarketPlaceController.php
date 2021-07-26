@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MarketPlace;
 use Illuminate\Http\Request;
 
 class AdminMarketPlaceController extends Controller
@@ -13,6 +14,17 @@ class AdminMarketPlaceController extends Controller
 
     public function marketPlace(){
 
-        return view('admin.account.market-place.index');
+        $products = MarketPlace::with('user')
+            ->orderBy('created_at', 'desc')->paginate(20);
+
+        return view('admin.account.market-place.index', compact('products'));
+    }
+
+    public function approve(){
+
+        $products = MarketPlace::with('user')
+            ->orderBy('created_at', 'desc')->paginate(20);
+
+        return view('admin.account.market-place.index', compact('products'));
     }
 }

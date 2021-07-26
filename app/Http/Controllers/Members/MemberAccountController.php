@@ -181,6 +181,7 @@ class MemberAccountController extends Controller
             $background->save($converted_path.'/'.$fileName);
         }
 
+        // When the payer uploads proof of payment and confirms they have pad the receiver
         $pairing->proof_of_payment = $fileName;
         $pairing->confirm_payment = 1;
         $pairing->save();
@@ -273,7 +274,7 @@ class MemberAccountController extends Controller
             return redirect()->back()->withInput();
         }
 
-        // approve pairing
+        // approve pairing payment
         $pairing->approved = 1;
         $pairing->save();
 

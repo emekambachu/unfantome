@@ -259,8 +259,8 @@
         Sidebar start
     ***********************************-->
     <div class="deznav">
-        <div class="deznav-scroll">
-            <ul class="metismenu" id="menu">
+        <div class="deznav-scroll mm-active ps ps--active-y">
+            <ul class="metismenu mm-show" id="menu">
                 <li>
                     <a class="ai-icon" href="{{ route('member.dashboard') }}" aria-expanded="false">
                         <i class="fa fa-desktop"></i>
@@ -275,18 +275,15 @@
                     </a>
                 </li>
 
-                <li>
-                    <a class="ai-icon" href="{{ route('member.market-place') }}" aria-expanded="false">
+                <li class=""><a class="has-arrow ai-icon" href="javascript:void(0);" aria-expanded="false">
                         <i class="fa fa-shopping-basket"></i>
                         <span class="nav-text">Market Place</span>
                     </a>
-                </li>
-
-                <li>
-                    <a class="ai-icon" href="" aria-expanded="false">
-                        <i class="fa fa-shopping-basket"></i>
-                        <span class="nav-text">Manage Products</span>
-                    </a>
+                    <ul aria-expanded="false" class="mm-collapse mm-show" style="">
+                        <li><a href="{{ route('member.market-place') }}">General Marketplace</a></li>
+                        <li><a href="{{ route('member.market-place.create') }}">Add Product</a></li>
+                        <li><a href="{{ route('member.market-place.my-products') }}">My Products</a></li>
+                    </ul>
                 </li>
 
                 <li>
