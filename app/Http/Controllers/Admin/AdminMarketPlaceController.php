@@ -76,5 +76,8 @@ class AdminMarketPlaceController extends Controller
         }
 
         $product->delete();
+
+        Session::flash('warning', 'Deleted');
+        return redirect()->back();
     }
 }
