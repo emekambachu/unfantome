@@ -124,7 +124,6 @@ class AdminAccountController extends Controller
 
             $product->delete();
         }
-
         $user->delete();
     }
 

@@ -16,6 +16,7 @@
         <div class="row">
             <div class="col-12">
                 <h4>Market Place</h4>
+                @include('includes.alerts-admin')
             </div>
 
             @forelse($products as $item)
@@ -34,10 +35,23 @@
 
                                     <div class="mt-2">
                                         {!! $item->approved === 0 ? "<p class='bg-warning text-white'>Pending, not published</p>" : '' !!}
-                                        <a class="btn btn-warning btn-sm"
-                                           href="{{ route('admin.market-place.approve', $item->id) }}"> {!! $item->approved === 0 ? "<p class='bg-success text-white'>Publish</p>" : "<p class='bg-warning text-white'>Close</p>" !!}</a>
+
+                                        @if($item->approved)
+                                            <form method="post"
+                                                  action="{{ route('admin.market-place.approve', $item->id) }}">
+                                                @csrf
+                                                <button class="btn btn-danger btn-sm shadow btn-xs mb-1">Block</button>
+                                            </form>
+                                        @else
+                                            <form method="post"
+                                                  action="{{ route('admin.market-place.approve', $item->id) }}">
+                                                @csrf
+                                                <button class="btn btn-success btn-sm shadow btn-xs mb-1">Publish</button>
+                                            </form>
+                                        @endif
+
                                         <form method="post"
-                                              action="{{ route('admin.market-place.delete', $item->id) }}">
+                                              action="{{ route('admin.market-place.delete-product', $item->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button class="btn btn-danger btn-sm shadow btn-xs mb-1">Delete</button>
