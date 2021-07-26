@@ -135,7 +135,7 @@ Route::get('admin/market-place', [AdminMarketPlaceController::class, 'index'])
     ->name('admin.market-place');
 Route::post('admin/market-place/approve/{id}', [AdminMarketPlaceController::class, 'approve'])
     ->name('admin.market-place.approve');
-Route::delete('admin/market-place/delete/{id}', [AdminAccountController::class, 'deleteProduct'])
+Route::delete('admin/market-place/delete/{id}', [AdminMarketPlaceController::class, 'deleteProduct'])
     ->name('admin.market-place.delete-product');
 
 // Admin pairing

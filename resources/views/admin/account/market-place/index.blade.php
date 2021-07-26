@@ -1,4 +1,4 @@
-@extends('members.account.layout')
+@extends('admin.account.layout')
 
 @section('title')
     Market Place

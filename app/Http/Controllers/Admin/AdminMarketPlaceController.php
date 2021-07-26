@@ -59,7 +59,7 @@ class AdminMarketPlaceController extends Controller
         return redirect()->back();
     }
 
-    public function delete($id) {
+    public function deleteProduct($id) {
 
         $product = Marketplace::findOrFail($id);
 
