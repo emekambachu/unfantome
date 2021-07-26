@@ -16,7 +16,9 @@
         <div class="row">
             <div class="col-12">
                 <h4>Market Place</h4>
-                @include('includes.alerts-admin')
+                <div class="text-center">
+                    @include('includes.alerts-admin')
+                </div>
             </div>
 
             @forelse($products as $item)
