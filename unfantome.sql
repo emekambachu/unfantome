@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 21, 2021 at 09:19 PM
--- Server version: 10.4.10-MariaDB
--- PHP Version: 7.3.12
+-- Generation Time: Jul 26, 2021 at 08:43 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -65,10 +64,39 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `market_places`
+--
+
+DROP TABLE IF EXISTS `market_places`;
+CREATE TABLE IF NOT EXISTS `market_places` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_two` text COLLATE utf8mb4_unicode_ci,
+  `image_three` text COLLATE utf8mb4_unicode_ci,
+  `approved` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `market_places`
+--
+
+INSERT INTO `market_places` (`id`, `user_id`, `name`, `price`, `description`, `image`, `image_two`, `image_three`, `approved`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Nice T-shirt', 999, '<p>pojkponjo oj on o n jokmkmkom o on&nbsp; omkom o on o noinkm&nbsp; mpomoo pmompo ppmo,kpo</p>', 'Dexter Neutron-1627201063NAtural MAkeup.png', 'Dexter Neutron-1627201063NAtural MAkeup.png', NULL, 0, '2021-07-25 07:17:43', '2021-07-25 07:17:43');
 
 -- --------------------------------------------------------
 
@@ -82,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -95,7 +123,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (8, '2021_07_04_215748_create_admins_table', 1),
 (9, '2021_07_10_165139_create_payments_table', 2),
 (12, '2021_07_10_165200_create_pairings_table', 3),
-(11, '2021_07_10_171504_create_payment_plans_table', 2);
+(11, '2021_07_10_171504_create_payment_plans_table', 2),
+(13, '2021_07_17_165423_create_market_places_table', 4);
 
 -- --------------------------------------------------------
 
@@ -109,11 +138,11 @@ CREATE TABLE IF NOT EXISTS `pairings` (
   `payer_id` bigint(20) UNSIGNED NOT NULL,
   `receiver_id` bigint(20) UNSIGNED NOT NULL,
   `amount` int(11) NOT NULL,
-  `proof_of_payment` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `proof_of_payment` text COLLATE utf8mb4_unicode_ci,
   `time_limit` int(50) NOT NULL,
-  `confirm_payment` tinyint(4) NOT NULL DEFAULT 0,
-  `approved` tinyint(1) NOT NULL DEFAULT 0,
-  `cancelled` tinyint(4) NOT NULL DEFAULT 0,
+  `confirm_payment` tinyint(4) NOT NULL DEFAULT '0',
+  `approved` tinyint(1) NOT NULL DEFAULT '0',
+  `cancelled` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -153,8 +182,8 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `payment_plan_id` bigint(20) UNSIGNED NOT NULL,
   `amount` int(11) NOT NULL,
   `balance` int(50) NOT NULL,
-  `approved` tinyint(1) NOT NULL DEFAULT 0,
-  `completed_returns` tinyint(1) NOT NULL DEFAULT 0,
+  `approved` tinyint(1) NOT NULL DEFAULT '0',
+  `completed_returns` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -212,10 +241,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mode_of_payment` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password_backup` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` text COLLATE utf8mb4_unicode_ci,
   `verification_token` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `paired` tinyint(4) NOT NULL DEFAULT 0,
-  `approved` tinyint(4) NOT NULL DEFAULT 1,
+  `paired` tinyint(4) NOT NULL DEFAULT '0',
+  `approved` tinyint(4) NOT NULL DEFAULT '1',
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,

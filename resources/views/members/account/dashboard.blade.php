@@ -22,7 +22,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mb-1">CFA {{ number_format($investments['total']) }}</h5>
+                                            <h5 class="mb-1">GNF {{ number_format($investments['total']) }}</h5>
                                             <span class="text-success">Total Investment</span>
                                         </div>
                                     </div>
@@ -38,7 +38,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">CFA {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
+                                            <h5 class="text-white mb-1">GNF {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1">CFA {{ number_format(Auth::user()->expectedReturn()) }}</h5>
+                                            <h5 class="text-white mb-1">GNF {{ number_format(Auth::user()->expectedReturn()) }}</h5>
                                             <span>Expected returns</span>
                                         </div>
                                     </div>
@@ -100,11 +100,11 @@
                     </div>
                 </div>
 
-                @if($payer)
+                @if($pairing_payer)
                 <div class="col-xl-6 col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">You have been paired to pay {{ $payer->receiver->name }}</h4>
+                            <h4 class="card-title">You have been paired to pay {{ $pairing_payer->receiver->name }}</h4>
                         </div>
                         <div class="p-2">
                             @if($timeLimit > $getSeconds)
@@ -113,16 +113,20 @@
                             <h6 class="card-title text-danger">Your time has expired</h6>
                             @endif
                             <p><strong>Contact them via</strong><br>
-                            <p><strong>Email:</strong> {{ $payer->receiver->email }}<br>
-                            <p><strong>Mobile:</strong> {{ $payer->receiver->mobile }}</p>
+                            <p><strong>Email:</strong> {{ $pairing_payer->receiver->email }}<br>
+                            <p><strong>Mobile:</strong> {{ $pairing_payer->receiver->mobile }}</p>
+                            <p><strong>Mode of Payment:</strong> {{ $pairing_payer->receiver->mode_of_payment }}</p>
+                            <p><strong>Account Number:</strong> {{ $pairing_payer->receiver->account_number }}</p>
                             <p class="font-weight-bolder">Once you have made payment, upload a screenshot of the payment and click "I HAVE PAID"</p>
                             <p class="font-medium text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</p>
                         </div>
                         <div class="card-body">
                             @include('includes.alerts')
                             <div class="basic-form">
-                                @if($payer->confirm_payment === 0)
-                                    <form method="post" action="{{ route('member.confirm-payment', $payer->id) }}"
+                                @if($pairing_payer->confirm_payment === 0)
+                                    <!--Upload receipt of payment-->
+                                    <form method="post"
+                                          action="{{ route('member.confirm-payment', $pairing_payer->id) }}"
                                           enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
@@ -133,13 +137,13 @@
                                         </div>
                                     </form>
 
-                                    <form method="post" action="{{ route('member.cancel-payment', $payer->id) }}">
+                                    <form method="post" action="{{ route('member.cancel-payment', $pairing_payer->id) }}">
                                         @csrf
                                         <div class="form-group">
                                             <button type="submit" class="btn btn-danger">I'm unable to pay</button>
                                         </div>
                                     </form>
-                                @elseif($payer->confirm_payment === 1 && $payer->approved === 0)
+                                @elseif($pairing_payer->confirm_payment === 1 && $pairing_payer->approved === 0)
                                     <p class="font-weight-bold text-success text-center">
                                         You have confirmed you made your payment to the receiver, he/she will have to confirm they have received the money from you before we conclude on this investment.<br>
                                         You can contact them to hasten things up.
@@ -151,11 +155,11 @@
                 </div>
                 @endif
 
-                @if($receiver)
+                @if($pairing_receiver)
                     <div class="col-xl-6 col-lg-6 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">You have been paired to receive CFA {{ $receiver->amount }} from {{ $receiver->payer->name }}</h4>
+                                <h4 class="card-title">You have been paired to receive CFA {{ $pairing_receiver->amount }} from {{ $pairing_receiver->payer->name }}</h4>
                             </div>
                             <div class="p-2">
                                 @if($timeLimit > $getSeconds)
@@ -164,24 +168,27 @@
                                     <h6 class="card-title text-danger">Their time has expired</h6>
                                 @endif
                                 <p><strong>Contact them via</strong><br>
-                                <p><strong>Email:</strong> {{ $receiver->payer->email }}<br>
-                                <p><strong>Mobile:</strong> {{ $receiver->payer->mobile }}</p>
+                                <p><strong>Email:</strong> {{ $pairing_receiver->payer->email }}<br>
+                                <p><strong>Mobile:</strong> {{ $pairing_receiver->payer->mobile }}</p>
                             </div>
 
-                            @if($receiver->confirm_payment === 1 && $receiver->approved === 0)
+                            @if($pairing_receiver->confirm_payment === 1 && $pairing_receiver->approved === 0)
                                 <div class="p-2">
                                     <p class="font-weight-bolder">Your receiver confirmed they have paid you your money, please click on "I HAVE RECEIVED MY MONEY"</p>
                                     <p class="font-medium text-danger">NOTE: If you don't approve receipt, we will assume you have not been paid</p>
                                 </div>
-                            <img src="{{ asset('photos/proof-of-payment/'.$receiver->proof_of_payment) }}" width="600"/>
+                            <img src="{{ asset('photos/proof-of-payment/'.$pairing_receiver->proof_of_payment) }}"
+                                 width="600"/>
                             <div class="card-body">
 
                                 @include('includes.alerts')
                                 <div class="basic-form">
-                                    <form method="post" action="{{ route('member.approve-payment', $receiver->id) }}">
+                                    <form method="post"
+                                          action="{{ route('member.approve-payment', $pairing_receiver->id) }}">
                                         @csrf
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-primary">I have received my money</button>
+                                            <button type="submit" class="btn btn-primary">
+                                                I have received my money</button>
                                         </div>
                                     </form>
                                 </div>
@@ -198,63 +205,60 @@
                 <div class="col-12">
                     <h4>Market Place</h4>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="new-arrival-product">
-                                <div class="new-arrivals-img-contnent">
-                                    <img class="img-fluid" src="{{ asset('auth/images/product/3.jpg') }}" alt="">
-                                </div>
-                                <div class="new-arrival-content text-center mt-3">
-                                    <h5>Product Name</h5>
-                                    <p>Email / Mobile</p>
-                                    <p>Location</p>
-                                    <span class="price">$357.00</span>
+
+                @forelse($products as $item)
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="new-arrival-product">
+                                    <div class="new-arrivals-img-contnent">
+                                        <img class="img-fluid" src="{{ asset('photos/market-place/'.$item->image) }}">
+                                    </div>
+                                    <div class="new-arrival-content text-center mt-3">
+                                        <h5>{{ $item->name }}</h5>
+                                        <p><i class="fa fa-envelope"></i> {{ $item->user->email }}</p>
+                                        <p><i class="fa fa-mobile"></i> {{ $item->user->mobile }}</p>
+                                        <span class="bg-info p-2 text-white rounded">CFA {{ $item->price }}</span>
+
+                                        <div class="mt-2">
+                                            @if($item->user_id === Auth::user()->id)
+                                                {!! $item->approved === 0 ? "<p class='bg-warning text-white'>Pending, not published</p>" : '' !!}
+                                                <a class="btn btn-warning btn-sm"
+                                                   href="{{ route('member.market-place.edit', $item->id) }}">Edit</a>
+                                                <form method="post"
+                                                      action="{{ route('member.market-place.delete', $item->id) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger btn-sm shadow btn-xs mb-1">Delete</button>
+                                                </form>
+                                            @endif
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="new-arrival-product">
-                                <div class="new-arrivals-img-contnent">
-                                    <img class="img-fluid" src="{{ asset('auth/images/product/4.jpg') }}" alt="">
-                                </div>
-                                <div class="new-arrival-content text-center mt-3">
-                                    <h5>Product Name</h5>
-                                    <p>Email / Mobile</p>
-                                    <p>Location</p>
-                                    <span class="price">$654.00</span>
+                    <div class="col-12 text-center">
+                        <a href="{{ route('member.market-place') }}">
+                            <button class="btn btn-info">More</button>
+                        </a>
+                    </div>
+
+                @empty
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="new-arrival-product">
+                                    <div class="new-arrival-content text-center mt-3">
+                                        <h5>No product available</h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-xl-4 col-lg-6 col-md-4 col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="new-arrival-product">
-                                <div class="new-arrivals-img-contnent">
-                                    <img class="img-fluid" src="{{ asset('auth/images/product/5.jpg') }}" alt="">
-                                </div>
-                                <div class="new-arrival-content text-center mt-3">
-                                    <h5>Product Name</h5>
-                                    <p>Email / Mobile</p>
-                                    <p>Location</p>
-                                    <span class="price">$369.00</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 text-center">
-                    <button class="btn btn-info">More</button>
-                </div>
+                @endforelse
 
             </div>
 

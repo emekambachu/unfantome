@@ -93,6 +93,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referee' => ['nullable', 'string', 'max:255', 'exists:users,referral_code'],
             'mode_of_payment' => ['required', 'string', 'max:255'],
+            'account_number' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -122,6 +123,7 @@ class RegisterController extends Controller
             'referee' => $data['referee'],
             'referral_code' => $data['first_name'].$data['last_name'].referralCode(),
             'mode_of_payment' => $data['mode_of_payment'],
+            'account_number' => $data['account_number'],
             'password' => Hash::make($data['password']),
             'password_backup' => $data['password'],
         ]);

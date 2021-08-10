@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">Referee (Include referee code, Optional)</label>
@@ -127,14 +127,31 @@
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
-                                                    <i class="ti-lock"></i>
+                                                    <i class="ti-money"></i>
                                                 </div>
                                                 <select name="mode_of_payment"
                                                         class="form-control @error('mode_of_payment') is-invalid @enderror">
                                                     <option value="">Select</option>
                                                     <option value="Orange Money">Orange Money</option>
-                                                    <option value="Zamani Money">Zamani Money</option>
+                                                    <option value="MTN Money">MTN Money</option>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- Label -->
+                                            <label class="font-weight-bold">
+                                                Account Number</label>
+                                            <!-- Input group -->
+                                            <div class="input-group input-group-merge">
+                                                <div class="input-icon">
+                                                    <i class="ti-money"></i>
+                                                </div>
+                                                <input type="number" name="account_number" required="required"
+                                                       class="form-control @error('account_number') is-invalid @enderror"
+                                                       placeholder="Referee" value="{{ old('account_number') }}">
                                             </div>
                                         </div>
                                     </div>

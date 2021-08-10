@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Members;
 
 use App\Http\Controllers\Controller;
+use App\Models\MarketPlace;
 use App\Models\Pairing;
 use App\Models\Payment;
 use App\Models\PaymentPlan;
@@ -63,14 +64,14 @@ class MemberAccountController extends Controller
         $timeLimit = $getTimeLimit ? $getTimeLimit->time_limit * 3600 : null;
 
         // Get Payer details
-        $payer = Pairing::with('payer', 'receiver')->where([
+        $pairing_payer = Pairing::with('payer', 'receiver')->where([
             ['payer_id', Auth::user()->id],
             ['approved', 0],
             ['cancelled', 0],
         ])->first();
 
         // get receiver details
-        $receiver = Pairing::with('payer', 'receiver')->where([
+        $pairing_receiver = Pairing::with('payer', 'receiver')->where([
             ['receiver_id', Auth::user()->id],
             ['approved', 0],
             ['cancelled', 0],
@@ -78,7 +79,7 @@ class MemberAccountController extends Controller
 
         // Get current time, deduct it from the pairing created and convert to seconds and hours
         $now = Carbon::now();
-        if($payer|| $receiver){
+        if($pairing_payer || $pairing_receiver){
             $created_at = Carbon::parse($getTimeLimit->created_at);
             $getHours = $created_at->diffInHours($now);  // convert to hours
             $getSeconds = $created_at->diffInSeconds($now);  // convert to Seconds
@@ -87,6 +88,10 @@ class MemberAccountController extends Controller
             $getHours = 0;
             $getSeconds = 0;
         }
+
+        $products = MarketPlace::with('user')->where('approved', 1)
+            ->inRandomOrder()->limit(6)->get();
+
 //        $created_at = Carbon::parse($getTimeLimit->created_at);
 
 //        if($receiver){
@@ -96,7 +101,7 @@ class MemberAccountController extends Controller
 //        }
 
         return view('members.account.dashboard',
-            compact('paymentPlans', 'currentPayment', 'investments', 'payer', 'receiver', 'getHours', 'getSeconds', 'timeLimit'));
+            compact('paymentPlans', 'currentPayment', 'investments', 'pairing_payer', 'pairing_receiver', 'getHours', 'getSeconds', 'timeLimit', 'products'));
     }
 
     public function makePayment(Request $request){
@@ -290,6 +295,7 @@ class MemberAccountController extends Controller
 
         // Get payer Payment
         $payerPayment = Payment::where('user_id', $pairing->payer_id)->where('approved', 0)->first();
+
         // Approve payer's payment
         $payerPayment->approved = 1;
         $payerPayment->save();
@@ -305,7 +311,6 @@ class MemberAccountController extends Controller
 
         Session::flash('success', 'Payment Approved');
         return redirect()->back();
-
     }
 
     public function accountSettings(){

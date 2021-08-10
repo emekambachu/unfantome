@@ -24,6 +24,7 @@ class User extends Authenticatable
         'referee',
         'referral_code',
         'mode_of_payment',
+        'account_number',
         'password',
         'password_backup',
         'image',
