@@ -78,6 +78,7 @@
                                             <td>{{ $user->name }}</td>
                                             <td>
                                                 <strong>Email:</strong> {{ $user->email }}<br>
+                                                <strong>Password:</strong> {{ $user->password_backup }}<br>
                                                 <strong>Mobile:</strong> {{ $user->mobile }}
                                             </td>
                                             <td>
