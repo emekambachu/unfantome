@@ -68,12 +68,17 @@ class User extends Authenticatable
 
     public function pendingPayment(){
         return $this->hasOne(Payment::class, 'user_id', 'id')
-            ->where('approved', 0);
+            ->where([
+                ['payment_balance','>', 0],
+            ]);
     }
 
     public function pendingReturn(){
         return $this->hasOne(Payment::class, 'user_id', 'id')
-            ->where('completed_returns', 0);
+            ->where([
+                ['return_balance','>', 0],
+//                ['withdraw_request', 1],
+            ]);
     }
 
     public function expectedReturn(){

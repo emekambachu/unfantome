@@ -11,15 +11,18 @@ class CreatePaymentsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up(){
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('payment_plan_id')->unsigned();
+            $table->tinyInteger('withdraw_request')->default(0);
             $table->integer('amount');
-            $table->boolean('approved');
-            $table->boolean('completed_returns');
+            $table->integer('payment_balance');
+            $table->integer('return_balance');
+            $table->boolean('approved')->default(0);
+            $table->boolean('completed_payments')->default(0);
+            $table->boolean('completed_returns')->default(0);
             $table->timestamps();
         });
     }

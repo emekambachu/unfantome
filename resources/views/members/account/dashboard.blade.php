@@ -71,6 +71,9 @@
 
             <div class="row">
                 <div class="col-md-12">
+{{--                    @if(Auth::user()->pendingPayment)--}}
+{{--                        <p>You will be ready to be paired in {{ $payment_get_days }} days</p>--}}
+{{--                    @endif--}}
                     @include('includes.alerts')
                 </div>
                 <div class="col-xl-6 col-lg-6 col-sm-12">
@@ -104,7 +107,8 @@
                 <div class="col-xl-6 col-lg-6 col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">You have been paired to pay {{ $pairing_payer->receiver->name }}</h4>
+                            <h4 class="card-title">
+                                You have been paired to pay {{ $pairing_payer->receiver->name }} GNF{{ number_format($pairing_payer->amount) }} </h4>
                         </div>
                         <div class="p-2">
                             @if($timeLimit > $getSeconds)
@@ -112,42 +116,45 @@
                             @else
                             <h6 class="card-title text-danger">Your time has expired</h6>
                             @endif
-                            <p><strong>Contact them via</strong><br>
-                            <p><strong>Email:</strong> {{ $pairing_payer->receiver->email }}<br>
-                            <p><strong>Mobile:</strong> {{ $pairing_payer->receiver->mobile }}</p>
-                            <p><strong>Mode of Payment:</strong> {{ $pairing_payer->receiver->mode_of_payment }}</p>
-                            <p><strong>Account Number:</strong> {{ $pairing_payer->receiver->account_number }}</p>
-                            <p class="font-weight-bolder">Once you have made payment, upload a screenshot of the payment and click "I HAVE PAID"</p>
-                            <p class="font-medium text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</p>
+                            <p>
+                                <strong>Contact them via</strong><br>
+                                <strong>Email:</strong> {{ $pairing_payer->receiver->email }}<br>
+                                <strong>Mobile:</strong> {{ $pairing_payer->receiver->mobile }}<br>
+                                <strong>Mode of Payment:</strong> {{ $pairing_payer->receiver->mode_of_payment }}<br>
+                                <strong>Account Number:</strong> {{ $pairing_payer->receiver->account_number }}
+                            </p>
+                            <p class="font-weight-bolder">Once you have made payment, upload a screenshot of the payment and click "I HAVE PAID"<br>
+                                <span class="text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</span></p>
                         </div>
                         <div class="card-body">
                             @include('includes.alerts')
                             <div class="basic-form">
                                 @if($pairing_payer->confirm_payment === 0)
-                                    <!--Upload receipt of payment-->
-                                    <form method="post"
-                                          action="{{ route('member.confirm-payment', $pairing_payer->id) }}"
-                                          enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <label>Proof of payment (jpg, jpeg, png):</label>
-                                            <input class="form-control mb-2" type="file" name="proof_of_payment" required>
+                                <!--Upload receipt of payment-->
+                                <form method="post"
+                                      action="{{ route('member.confirm-payment', $pairing_payer->id) }}"
+                                      enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label>Proof of payment (jpg, jpeg, png):</label>
+                                        <input class="form-control mb-2" type="file"
+                                               name="proof_of_payment" required>
+                                        <button type="submit" class="btn btn-primary">I have paid</button>
+                                    </div>
+                                </form>
 
-                                            <button type="submit" class="btn btn-primary">I have paid</button>
-                                        </div>
-                                    </form>
-
-                                    <form method="post" action="{{ route('member.cancel-payment', $pairing_payer->id) }}">
-                                        @csrf
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-danger">I'm unable to pay</button>
-                                        </div>
-                                    </form>
+                                <form method="post" action="{{ route('member.cancel-payment', $pairing_payer->id) }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-danger">I'm unable to pay</button>
+                                    </div>
+                                </form>
                                 @elseif($pairing_payer->confirm_payment === 1 && $pairing_payer->approved === 0)
-                                    <p class="font-weight-bold text-success text-center">
-                                        You have confirmed you made your payment to the receiver, he/she will have to confirm they have received the money from you before we conclude on this investment.<br>
-                                        You can contact them to hasten things up.
-                                    </p>
+                                <p class="font-weight-bold text-success text-center">
+                                    You've confirmed payment has been made to this receiver along with the proof of payment, he/she will have to confirm they have received the money from you before we conclude on this investment.<br>
+                                    You can contact them to hasten things up.</p>
+                                <img src="{{ asset('photos/proof-of-payment/'.$pairing_payer->proof_of_payment) }}"
+                                         width="600"/>
                                 @endif
                             </div>
                         </div>
@@ -159,7 +166,7 @@
                     <div class="col-xl-6 col-lg-6 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">You have been paired to receive CFA {{ $pairing_receiver->amount }} from {{ $pairing_receiver->payer->name }}</h4>
+                                <h4 class="card-title">You have been paired to receive GNF{{ number_format($pairing_receiver->amount) }} from {{ $pairing_receiver->payer->name }}</h4>
                             </div>
                             <div class="p-2">
                                 @if($timeLimit > $getSeconds)
@@ -167,15 +174,17 @@
                                 @else
                                     <h6 class="card-title text-danger">Their time has expired</h6>
                                 @endif
-                                <p><strong>Contact them via</strong><br>
-                                <p><strong>Email:</strong> {{ $pairing_receiver->payer->email }}<br>
-                                <p><strong>Mobile:</strong> {{ $pairing_receiver->payer->mobile }}</p>
+                                <p>
+                                    <strong>Contact them via</strong><br>
+                                    <strong>Email:</strong> {{ $pairing_receiver->payer->email }}<br>
+                                    <strong>Mobile:</strong> {{ $pairing_receiver->payer->mobile }}
+                                </p>
                             </div>
 
                             @if($pairing_receiver->confirm_payment === 1 && $pairing_receiver->approved === 0)
                                 <div class="p-2">
-                                    <p class="font-weight-bolder">Your receiver confirmed they have paid you your money, please click on "I HAVE RECEIVED MY MONEY"</p>
-                                    <p class="font-medium text-danger">NOTE: If you don't approve receipt, we will assume you have not been paid</p>
+                                    <p class="font-weight-bolder">Your receiver confirmed they have paid you your money, below is the proof of payment. please click on "I HAVE RECEIVED MY MONEY"<br>
+                                        <span class="text-danger">NOTE: If you don't approve receipt, we will assume you have not been paid</span></p>
                                 </div>
                             <img src="{{ asset('photos/proof-of-payment/'.$pairing_receiver->proof_of_payment) }}"
                                  width="600"/>

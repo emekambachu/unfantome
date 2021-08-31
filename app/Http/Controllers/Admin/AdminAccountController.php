@@ -38,12 +38,10 @@ class AdminAccountController extends Controller
         $total['completed-payments'] = $getPayments->where('completed_returns', 1)->sum('amount');
 
         // Get Users with pending payments, where approved payment and has not been paired
-        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')
-            ->where('paired', 0)->get();
+        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')->get();
 
         // Get Users with incomplete returns and has not been paired
-        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')
-            ->where('paired', 0)->get();
+        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')->get();
 
         $pairings = Pairing::with('payer', 'receiver')->limit(10)
             ->orderBy('created_at', 'desc')->get();

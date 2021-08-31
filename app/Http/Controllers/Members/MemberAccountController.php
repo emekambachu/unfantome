@@ -89,18 +89,19 @@ class MemberAccountController extends Controller
             $getSeconds = 0;
         }
 
+        // Get current time, deduct it from the pending payment created_at and convert to days
+        if(Auth::user()->pendingPayment){
+            $payment['payment_created_at'] = Carbon::parse(Auth::user()->pendingPayment->created_at);
+            $payment['payment_get_days'] = $payment['payment_created_at']->diffInDays($now);  // Convert to days
+        }else{
+            $payment['payment_created_at'] = 0;
+            $payment['payment_get_days'] = 0;
+        }
+
         $products = MarketPlace::with('user')->where('approved', 1)
             ->inRandomOrder()->limit(6)->get();
 
-//        $created_at = Carbon::parse($getTimeLimit->created_at);
-
-//        if($receiver){
-//            $created_at = Carbon::parse($receiver->created_at);
-//            $getHours = $created_at->diffInHours($now);  // convert to hours
-//            $getMinutes = $created_at->diffInMinutes($now);  // convert to Minutes
-//        }
-
-        return view('members.account.dashboard',
+        return view('members.account.dashboard', $payment,
             compact('paymentPlans', 'currentPayment', 'investments', 'pairing_payer', 'pairing_receiver', 'getHours', 'getSeconds', 'timeLimit', 'products'));
     }
 
@@ -114,16 +115,18 @@ class MemberAccountController extends Controller
             return redirect()->back();
         }
 
-        $input['balance'] = $input['amount'] * ($paymentPlan->percentage/100) + $input['amount'];
+        $input['return_balance'] = $input['amount'] * ($paymentPlan->percentage/100) + $input['amount'];
+        $input['payment_balance'] = $input['amount'];
 
         if($input['amount'] >= $paymentPlan->min && $input['amount'] <= $paymentPlan->max){
             Payment::create([
                 'user_id' => Auth::user()->id,
                 'payment_plan_id' => $input['payment_plan_id'],
                 'amount' => $input['amount'],
-                'balance' => $input['balance'],
+                'return_balance' => $input['return_balance'],
+                'payment_balance' => $input['payment_balance'],
             ]);
-            Session::flash('success', 'Your investment have been initiated, you will be matched shortly');
+            Session::flash('success', 'Your investment have been initiated, you will be paired in the next 7 days');
         }else{
             Session::flash('warning', 'Your amount must fall within the payment plan range');
         }
@@ -235,6 +238,17 @@ class MemberAccountController extends Controller
         $payer->paired = 0;
         $payer->save();
 
+        $payment = new Payment();
+        // add the pairing amount back to the payer payment's payment_balance
+        $payerPayment = $payment->where('user_id', $pairing->payer_id)->first();
+        $payerPayment->payment_balance += $pairing->amount;
+        $payerPayment->save();
+
+        // add the pairing amount back to the payer payment's payment_balance
+        $receiverPayment = $payment->where('user_id', $pairing->receiver_id)->first();
+        $receiverPayment->return_balance += $pairing->amount;
+        $receiverPayment->save();
+
         $data = [
             'payer_email' => $pairing->payer->email,
             'payer_name' => $pairing->payer->name,
@@ -293,21 +307,21 @@ class MemberAccountController extends Controller
         $receiver->paired = 0;
         $receiver->save();
 
-        // Get payer Payment
-        $payerPayment = Payment::where('user_id', $pairing->payer_id)->where('approved', 0)->first();
+        $payment = new Payment();
+        $payerPayment = $payment->where('user_id', $pairing->payer_id)->first();
+        $receiverPayment = $payment->where('user_id', $pairing->receiver_id)->first();
 
-        // Approve payer's payment
-        $payerPayment->approved = 1;
-        $payerPayment->save();
-
-        // Get receiver Payment and deduct the pairing amount
-        $receiverPayment = Payment::where('user_id', $pairing->receiver_id)->first();
-        $receiverPayment->balance -= $pairing->amount;
-        // if balance is finally zero, this receiver has completed his returns
-        if($receiverPayment->balance === 0 || $receiverPayment->balance === null){
-            $receiverPayment->completed_returns = 1;
+        // Approve payer's payment if the payment balance is 0
+        if($payerPayment->payment_balance === 0){
+            $payerPayment->approved = 1;
+            $payerPayment->completed_payments = 1;
+            $payerPayment->save();
         }
-        $receiverPayment->save();
+
+        if($receiverPayment->return_balance === 0){
+            $receiverPayment->completed_returns = 1;
+            $receiverPayment->save();
+        }
 
         Session::flash('success', 'Payment Approved');
         return redirect()->back();

@@ -11,8 +11,10 @@ class Payment extends Model
         'user_id',
         'payment_plan_id',
         'amount',
-        'balance',
+        'payment_balance',
+        'return_balance',
         'approved',
+        'completed_payments',
         'completed_returns'
     ];
 

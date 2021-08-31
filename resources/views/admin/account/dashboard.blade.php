@@ -91,14 +91,14 @@
                                         <label>Select Payer:</label>
                                         <select class="form-control mb-4" name="payer_id" id="sel1" required>
                                             @foreach($payers as $pay)
-                                                <option value="{{ $pay->id }}">{{ $pay->name }} (Investment: {{ number_format($pay->pendingPayment->amount) }})</option>
+                                                <option value="{{ $pay->id }}">{{ $pay->name }} (Investment: {{ number_format($pay->pendingPayment->payment_balance) }})</option>
                                             @endforeach
                                         </select>
 
                                         <label>Select Receiver:</label>
                                         <select class="form-control mb-4" name="receiver_id" id="sel1" required>
                                             @foreach($receivers as $rec)
-                                                <option value="{{ $rec->id }}">{{ $rec->name }} (Balance: {{ number_format($rec->pendingReturn->balance) }})</option>
+                                                <option value="{{ $rec->id }}">{{ $rec->name }} (Balance: {{ number_format($rec->pendingReturn->return_balance) }})</option>
                                             @endforeach
                                         </select>
 

@@ -19,12 +19,11 @@ class AdminPairingController extends Controller
     public function pairings(){
 
         $getUsers = new User();
-        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')
-            ->where('paired', 0)->get();
-        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')
-            ->where('paired', 0)->get();
+        $payers = $getUsers->with('pendingPayment')->has('pendingPayment')->get();
+        $receivers = $getUsers->with('pendingReturn')->has('pendingReturn')->get();
 
-        $pairings = Pairing::with('payer', 'receiver')->orderBy('created_at', 'desc')
+        $pairings = Pairing::with('payer', 'receiver')
+            ->orderBy('created_at', 'desc')
             ->paginate(20);
 
         return view('admin.account.pairings.index', compact('pairings', 'payers', 'receivers'));
@@ -34,17 +33,13 @@ class AdminPairingController extends Controller
 
         $input = $request->all();
         $user = new User();
+        $payment = new Payment();
 
         // if payer was mistakenly made to pay themselves
         if($input['payer_id'] === $input['receiver_id']){
             Session::flash('warning', 'Payer cannot pay themselves');
             return redirect()->back();
         }
-
-        // get pending amount from payer
-        $input['amount'] = $user->findOrFail($input['payer_id'])->pendingPayment->amount;
-
-        Pairing::create($input);
 
         // get payer details and update paired to true
         $payer = $user->findOrFail($input['payer_id']);
@@ -55,6 +50,31 @@ class AdminPairingController extends Controller
         $receiver = $user->findOrFail($input['receiver_id']);
         $receiver->paired = 1; // true
         $receiver->save();
+
+        // Get payer and receiver payment information
+        $payerPayment = $payment->where('user_id', $input['payer_id'])
+            ->where('payment_balance','>', 0)->first();
+        $receiverPayment = $payment->where('user_id', $input['receiver_id'])
+            ->where('return_balance','>', 0)->first();
+
+        // if the payer's payment_balance is more than the receiver's return_balance, use the receiver's return balance as the pairing amount, else vice versa and debit it from the payer's payment_balance
+        if($payerPayment->payment_balance > $receiverPayment->return_balance){
+
+            $input['amount'] = $receiverPayment->return_balance;
+            $payerPayment->payment_balance -= $input['amount'];
+            $payerPayment->save();
+        }else{
+
+            $input['amount'] = $payerPayment->payment_balance;
+            $payerPayment->payment_balance -= $input['amount'];
+            $payerPayment->save();
+        }
+
+        // Deduct the paired amount from the receiver's payment return_balance
+        $receiverPayment->return_balance -= $input['amount'];
+        $receiverPayment->save();
+
+        Pairing::create($input);
 
         $data = [
             'payer_name' => $payer->name,
