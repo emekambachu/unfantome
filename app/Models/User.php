@@ -91,6 +91,7 @@ class User extends Authenticatable
             $paymentPlan = PaymentPlan::findOrFail($currentPayment->payment_plan_id);
             $expectedReturn = $currentPayment->amount * ($paymentPlan->percentage/100) + $currentPayment->amount;
         }else{
+            $paymentPlan = 0;
             $expectedReturn = 0;
         }
 
