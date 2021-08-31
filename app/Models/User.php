@@ -90,7 +90,7 @@ class User extends Authenticatable
 
         if($currentPayment){
             $paymentPlan = PaymentPlan::where('id', $currentPayment->payment_plan_id)->first();
-            if($paymentPlan){
+            if($paymentPlan){// incase the payment plan gets deleted
                 $expectedReturn = $currentPayment->amount * ($paymentPlan->percentage/100) + $currentPayment->amount;
             }else{
                 $paymentPlan = null;
