@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use function PHPUnit\Framework\isTrue;
 
 class User extends Authenticatable
 {
@@ -87,7 +88,7 @@ class User extends Authenticatable
             ['completed_returns', 0],
         ])->first();
 
-        if($currentPayment){
+        if(isTrue($currentPayment)){
             $paymentPlan = PaymentPlan::findOrFail($currentPayment->payment_plan_id);
             $expectedReturn = $currentPayment->amount * ($paymentPlan->percentage/100) + $currentPayment->amount;
         }else{
