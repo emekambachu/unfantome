@@ -88,7 +88,7 @@ class User extends Authenticatable
             ['completed_returns', 0],
         ])->first();
 
-        if(isTrue($currentPayment)){
+        if($currentPayment !== null){
             $paymentPlan = PaymentPlan::findOrFail($currentPayment->payment_plan_id);
             $expectedReturn = $currentPayment->amount * ($paymentPlan->percentage/100) + $currentPayment->amount;
         }else{
