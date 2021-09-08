@@ -78,6 +78,7 @@ class User extends Authenticatable
         return $this->hasOne(Payment::class, 'user_id', 'id')
             ->where([
                 ['return_balance','>', 0],
+                ['completed_payments',1],
 //                ['withdraw_request', 1],
             ]);
     }
