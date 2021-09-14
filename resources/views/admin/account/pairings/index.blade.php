@@ -75,7 +75,7 @@
                                         <th><strong>Time limit</strong></th>
                                         <th><strong>Status</strong></th>
                                         <th><strong>Date</strong></th>
-                                        {{--                                        <th><strong>Action</strong></th>--}}
+                                        <th><strong>Action</strong></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -109,19 +109,13 @@
                                                 {{ $item->approved ? 'Paid' : 'Pending' }}
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('j F, Y') }}</td>
-                                            {{--                                        <td>--}}
-                                            {{--                                            <div class="">--}}
-                                            {{--                                                <form method="post" action="{{ route('admin.approve-user', $user->id) }}">--}}
-                                            {{--                                                    @csrf--}}
-                                            {{--                                                    <button class="btn btn-primary shadow btn-xs mb-1">--}}
-                                            {{--                                                        {{ $user->approved ? 'un-approve' : 'approve' }}</button>--}}
-                                            {{--                                                </form>--}}
-                                            {{--                                                <form method="post" action="{{ route('admin.delete-user', $user->id) }}">--}}
-                                            {{--                                                    @csrf--}}
-                                            {{--                                                    <button class="btn btn-danger shadow btn-xs">Delete</button>--}}
-                                            {{--                                                </form>--}}
-                                            {{--                                            </div>--}}
-                                            {{--                                        </td>--}}
+                                            <td>
+                                                <form method="post" action="{{ route('admin.pairing.delete', $item->id) }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button class="btn btn-danger shadow btn-xs" type="submit">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
 

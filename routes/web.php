@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAccountController;
+use App\Http\Controllers\Admin\AdminInvestmentController;
 use App\Http\Controllers\Admin\AdminMarketPlaceController;
 use App\Http\Controllers\Admin\AdminPairingController;
 use App\Http\Controllers\Admin\AdminPaymentPlanController;
@@ -118,6 +119,20 @@ Route::get('admin/account-settings', [AdminAccountController::class, 'accountSet
 Route::post('admin/account-settings/update', [AdminAccountController::class, 'updateAccountSettings'])
     ->name('admin.account-settings.update');
 
+// Admin Investments
+Route::get('admin/investments', [AdminInvestmentController::class, 'index'])
+    ->name('admin.investments.index');
+Route::delete('admin/investment/{id}/delete', [AdminInvestmentController::class, 'delete'])
+    ->name('admin.investment.delete');
+
+// Admin pairing
+Route::get('admin/pairings', [AdminPairingController::class, 'pairings'])
+    ->name('admin.pairings');
+Route::post('admin/pair-users', [AdminPairingController::class, 'pairUsers'])
+    ->name('admin.pair-users');
+Route::delete('admin/pairing/{id}/delete', [AdminPairingController::class, 'delete'])
+    ->name('admin.pairing.delete');
+
 // Admin Payment Plans
 Route::get('admin/payment-plans', [AdminPaymentPlanController::class, 'index'])
     ->name('admin.payment-plans');
@@ -137,13 +152,6 @@ Route::post('admin/market-place/approve/{id}', [AdminMarketPlaceController::clas
     ->name('admin.market-place.approve');
 Route::delete('admin/market-place/delete/{id}', [AdminMarketPlaceController::class, 'deleteProduct'])
     ->name('admin.market-place.delete-product');
-
-// Admin pairing
-Route::get('admin/pairings', [AdminPairingController::class, 'pairings'])
-    ->name('admin.pairings');
-Route::post('admin/pair-users', [AdminPairingController::class, 'pairUsers'])
-    ->name('admin.pair-users');
-
 
 //Github Deployment
 Route::post('github/deploy', [GithubDeploymentController::class, 'deploy']);

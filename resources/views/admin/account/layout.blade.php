@@ -238,6 +238,13 @@
                 </li>
 
                 <li>
+                    <a class="ai-icon" href="{{ route('admin.investments.index') }}" aria-expanded="false">
+                        <i class="fa fa-line-chart"></i>
+                        <span class="nav-text">Investments</span>
+                    </a>
+                </li>
+
+                <li>
                     <a class="ai-icon" href="{{ route('admin.pairings') }}" aria-expanded="false">
                         <i class="fa fa-users"></i>
                         <span class="nav-text">Pairings</span>
