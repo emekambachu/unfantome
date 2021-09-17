@@ -22,6 +22,7 @@
                             <div class="card overflow-hidden">
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
+
                                         <div class="col">
                                             <span class="text-success">Total Users</span>
                                             <h5 class="mb-1">{{ $count['users'] }} </h5>
@@ -41,6 +42,9 @@
             </div>
 
             <div class="row">
+                <div class="col-md-12">
+                    @include('includes.alerts')
+                </div>
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
@@ -71,7 +75,8 @@
                                         <tr>
                                             <td>
                                                 <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheckBox2" required="">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                           id="customCheckBox2" required="">
                                                     <label class="custom-control-label" for="customCheckBox2"></label>
                                                 </div>
                                             </td>
@@ -92,15 +97,18 @@
                                             <td>{{ \Carbon\Carbon::parse($user->created_at)->format('j F, Y') }}</td>
                                             <td>
                                                 <div class="">
-                                                    <form method="post" action="{{ route('admin.approve-user', $user->id) }}">
-                                                        @csrf
-                                                        <button class="btn btn-primary shadow btn-xs mb-1">
-                                                            {{ $user->approved ? 'un-approve' : 'approve' }}</button>
-                                                    </form>
-                                                    <form method="post" action="{{ route('admin.delete-user', $user->id) }}">
-                                                        @csrf
-                                                        <button class="btn btn-danger shadow btn-xs">Delete</button>
-                                                    </form>
+                                                    <a class="btn btn-warning mb-1"
+                                                       href="{{ route('admin.make-receiver', $user->id) }}">
+                                                        Make Receiver</a>
+                                                <form method="post" action="{{ route('admin.approve-user', $user->id) }}">
+                                                    @csrf
+                                                    <button class="btn btn-primary shadow btn-xs mb-1">
+                                                        {{ $user->approved ? 'un-approve' : 'approve' }}</button>
+                                                </form>
+                                                <form method="post" action="{{ route('admin.delete-user', $user->id) }}">
+                                                    @csrf
+                                                    <button class="btn btn-danger shadow btn-xs">Delete</button>
+                                                </form>
                                                 </div>
                                             </td>
                                         </tr>

@@ -222,7 +222,7 @@
                                                     <label class="custom-control-label" for="customCheckBox2"></label>
                                                 </div>
                                             </td>
-                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ $item->user->name ?? '' }}</td>
                                             <td>
                                                 <strong>Email:</strong> {{ $item->user->email }}<br>
                                                 <strong>Mobile:</strong> {{ $item->user->mobile }}

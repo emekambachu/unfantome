@@ -61,6 +61,50 @@ class AdminAccountController extends Controller
         return view('admin.account.manage-users', compact('users', 'count'));
     }
 
+    public function makeReceiver($id){
+
+        $data['user'] = User::findOrFail($id);
+        $data['paymentPlans'] = PaymentPlan::all();
+
+        if($data['user']->pendingPayment()->exists()){
+            Session::flash('warning', 'Already have a pending investment');
+            return redirect()->back();
+        }
+
+        return view('admin.account.make-receiver', $data);
+    }
+
+    public function makeReceiverInvest(Request $request, $id){
+
+        $user = User::findOrFail($id);
+
+        $input = $request->all();
+        $paymentPlan = PaymentPlan::findOrFail($input['payment_plan_id']);
+
+        if($user->pendingPayment()->exists()){
+            Session::flash('warning', 'Already have a pending investment');
+            return redirect()->back();
+        }
+
+        $input['return_balance'] = $input['amount'] * ($paymentPlan->percentage/100) + $input['amount'];
+
+        if($input['amount'] >= $paymentPlan->min && $input['amount'] <= $paymentPlan->max){
+            Payment::create([
+                'user_id' => $user->id,
+                'payment_plan_id' => $input['payment_plan_id'],
+                'amount' => $input['amount'],
+                'return_balance' => $input['return_balance'],
+                'payment_balance' => 0,
+                'completed_payments' => 1,
+            ]);
+            Session::flash('success', $user->name.' has become a receiver');
+        }else{
+            Session::flash('warning', 'Your amount must fall within the payment plan range');
+        }
+
+        return redirect()->back();
+    }
+
     public function approveUser($id){
 
         $user = User::findOrFail($id);

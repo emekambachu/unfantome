@@ -112,8 +112,12 @@ Route::post('admin/approve-user/{id}', [AdminAccountController::class, 'approveU
     ->name('admin.approve-user');
 Route::delete('admin/delete-user/{id}', [AdminAccountController::class, 'deleteUser'])
     ->name('admin.delete-user');
-Route::get('admin/manage-payments', [AdminAccountController::class, 'managePayments'])
-    ->name('admin.manage-payments');
+Route::get('admin/{id}/make-receiver', [AdminAccountController::class, 'makeReceiver'])
+    ->name('admin.make-receiver');
+Route::post('admin/make-receiver/{id}/invest', [AdminAccountController::class, 'makeReceiverInvest'])
+    ->name('admin.make-receiver.invest');
+
+// Admin Settings
 Route::get('admin/account-settings', [AdminAccountController::class, 'accountSettings'])
     ->name('admin.account-settings');
 Route::post('admin/account-settings/update', [AdminAccountController::class, 'updateAccountSettings'])
@@ -124,6 +128,8 @@ Route::get('admin/investments', [AdminInvestmentController::class, 'index'])
     ->name('admin.investments.index');
 Route::delete('admin/investment/{id}/delete', [AdminInvestmentController::class, 'delete'])
     ->name('admin.investment.delete');
+Route::get('admin/manage-payments', [AdminAccountController::class, 'managePayments'])
+    ->name('admin.manage-payments');
 
 // Admin pairing
 Route::get('admin/pairings', [AdminPairingController::class, 'pairings'])
