@@ -61,12 +61,17 @@ class AdminAccountController extends Controller
         return view('admin.account.manage-users', compact('users', 'count'));
     }
 
+//    public function hasPayment($userId){
+//        return Payment::with('user')->where('user_id', $userId)
+//            ->where('payment_balance','>', 0)->first();
+//    }
+
     public function makeReceiver($id){
 
-        $data['user'] = User::findOrFail($id);
+        $data['user'] = User::with('pendingPayment')->findOrFail($id);
         $data['paymentPlans'] = PaymentPlan::all();
 
-        if($data['user']->pendingPayment()->exists()){
+        if($data['user']->pendingPayment){
             Session::flash('warning', 'Already have a pending investment');
             return redirect()->back();
         }
@@ -81,7 +86,7 @@ class AdminAccountController extends Controller
         $input = $request->all();
         $paymentPlan = PaymentPlan::findOrFail($input['payment_plan_id']);
 
-        if($user->pendingPayment()->exists()){
+        if($user->pendingPayment){
             Session::flash('warning', 'Already have a pending investment');
             return redirect()->back();
         }
