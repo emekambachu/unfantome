@@ -22,7 +22,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="mb-1">GNF {{ number_format($investments['total']) }}</h5>
+                                            <h5 class="mb-1">CFA {{ number_format($investments['total']) }}</h5>
                                             <span class="text-success">Total Investment</span>
                                         </div>
                                     </div>
@@ -38,7 +38,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">GNF {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
+                                            <h5 class="text-white mb-1">CFA {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1">GNF {{ number_format(Auth::user()->expectedReturn()) }}</h5>
+                                            <h5 class="text-white mb-1">CFA {{ number_format(Auth::user()->expectedReturn()) }}</h5>
                                             <span>Expected returns</span>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">
-                                You have been paired to pay {{ $pairing_payer->receiver->name }} GNF{{ number_format($pairing_payer->amount) }} </h4>
+                                You have been paired to pay {{ $pairing_payer->receiver->name }} CFA{{ number_format($pairing_payer->amount) }} </h4>
                         </div>
                         <div class="p-2">
                             @if($timeLimit > $getSeconds)
@@ -121,7 +121,7 @@
                                 <strong>Email:</strong> {{ $pairing_payer->receiver->email }}<br>
                                 <strong>Mobile:</strong> {{ $pairing_payer->receiver->mobile }}<br>
                                 <strong>Mode of Payment:</strong> {{ $pairing_payer->receiver->mode_of_payment }}<br>
-                                <strong>Account Number:</strong> {{ $pairing_payer->receiver->account_number }}
+                                <strong>Mobile Money Number:</strong> {{ $pairing_payer->receiver->account_number }}
                             </p>
                             <p class="font-weight-bolder">Once you have made payment, upload a screenshot of the payment and click "I HAVE PAID"<br>
                                 <span class="text-danger">NOTE: The receiver has to approve that they have received the money before payment can be fully confirmed</span></p>
@@ -166,7 +166,7 @@
                     <div class="col-xl-6 col-lg-6 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">You have been paired to receive GNF{{ number_format($pairing_receiver->amount) }} from {{ $pairing_receiver->payer->name }}</h4>
+                                <h4 class="card-title">You have been paired to receive CFA{{ number_format($pairing_receiver->amount) }} from {{ $pairing_receiver->payer->name }}</h4>
                             </div>
                             <div class="p-2">
                                 @if($timeLimit > $getSeconds)

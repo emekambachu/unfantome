@@ -132,8 +132,8 @@
                                                 <select name="mode_of_payment"
                                                         class="form-control @error('mode_of_payment') is-invalid @enderror">
                                                     <option value="">Select</option>
-                                                    <option value="Orange Money">Orange Money</option>
-                                                    <option value="MTN Money">MTN Money</option>
+                                                    <option value="Zamani Money">Zamani Money</option>
+                                                    <option value="Airtel Money">Airtel Money</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@
                                         <div class="form-group">
                                             <!-- Label -->
                                             <label class="font-weight-bold">
-                                                Account Number</label>
+                                                Mobile Money Number</label>
                                             <!-- Input group -->
                                             <div class="input-group input-group-merge">
                                                 <div class="input-icon">
@@ -151,7 +151,7 @@
                                                 </div>
                                                 <input type="number" name="account_number" required="required"
                                                        class="form-control @error('account_number') is-invalid @enderror"
-                                                       placeholder="Referee" value="{{ old('account_number') }}">
+                                                       placeholder="Mobile Money Number" value="{{ old('account_number') }}">
                                             </div>
                                         </div>
                                     </div>
