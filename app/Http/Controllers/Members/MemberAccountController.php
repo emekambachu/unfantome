@@ -284,7 +284,7 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['receiver_id', Auth::user()->id],
-                ['confirmed_payment', 1],
+                ['confirm_payment', 1],
                 ['approved', 0],
             ])->first();
 
@@ -312,13 +312,13 @@ class MemberAccountController extends Controller
         $receiverPayment = $payment->where('user_id', $pairing->receiver_id)->first();
 
         // Approve payer's payment if the payment balance is 0
-        if($payerPayment->payment_balance === 0){
+        if($payerPayment->payment_balance == 0){
             $payerPayment->approved = 1;
             $payerPayment->completed_payments = 1;
             $payerPayment->save();
         }
 
-        if($receiverPayment->return_balance === 0){
+        if($receiverPayment->return_balance == 0){
             $receiverPayment->completed_returns = 1;
             $receiverPayment->save();
         }
