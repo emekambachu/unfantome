@@ -129,7 +129,7 @@
                         <div class="card-body">
                             @include('includes.alerts')
                             <div class="basic-form">
-                                @if($pairing_payer->confirm_payment === 0)
+                                @if($pairing_payer->confirm_payment == 0)
                                 <!--Upload receipt of payment-->
                                 <form method="post"
                                       action="{{ route('member.confirm-payment', $pairing_payer->id) }}"
@@ -151,7 +151,7 @@
                                 </form>
                                 @elseif($pairing_payer->confirm_payment === 1 && $pairing_payer->approved === 0)
                                 <p class="font-weight-bold text-success text-center">
-                                    You've confirmed payment has been made to this receiver along with the proof of payment, he/she will have to confirm they have received the money from you before we conclude on this investment.<br>
+                                    Your confirmed payment has been made to this receiver along with the proof of payment, he/she will have to confirm they have received the money from you before we conclude on this investment.<br>
                                     You can contact them to hasten things up.</p>
                                 <img src="{{ asset('photos/proof-of-payment/'.$pairing_payer->proof_of_payment) }}"
                                          width="600"/>
