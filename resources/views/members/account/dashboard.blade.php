@@ -181,7 +181,7 @@
                                 </p>
                             </div>
 
-                            @if($pairing_receiver->confirm_payment === 1 && $pairing_receiver->approved === 0)
+                            @if($pairing_receiver->confirm_payment == 1 && $pairing_receiver->approved == 0)
                                 <div class="p-2">
                                     <p class="font-weight-bolder">Your receiver confirmed they have paid you your money, below is the proof of payment. please click on "I HAVE RECEIVED MY MONEY"<br>
                                         <span class="text-danger">NOTE: If you don't approve receipt, we will assume you have not been paid</span></p>
