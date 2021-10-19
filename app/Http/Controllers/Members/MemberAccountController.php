@@ -146,7 +146,7 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['payer_id', Auth::user()->id],
-                ['confirmed_payment', 0],
+                ['confirm_payment', 0],
                 ['approved', 0],
             ])->first();
 
@@ -220,7 +220,7 @@ class MemberAccountController extends Controller
             ->where([
                 ['id', $id],
                 ['payer_id', Auth::user()->id],
-                ['confirmed_payment', 0],
+                ['confirm_payment', 0],
                 ['approved', 0],
             ])->first();
 
