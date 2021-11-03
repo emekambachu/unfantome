@@ -99,7 +99,7 @@
                                             </td>
                                             <td>
                                                 @if(!empty($item->proof_of_payment))
-                                                    <img width="200" src="{{ asset('photos/proof-of-payment/'.$item->proof_of_payment) }}"/>
+                                                    <img width="100" src="{{ asset('photos/proof-of-payment/'.$item->proof_of_payment) }}"/>
                                                 @endif
                                             </td>
                                             <td>
