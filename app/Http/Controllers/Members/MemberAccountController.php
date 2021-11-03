@@ -239,6 +239,7 @@ class MemberAccountController extends Controller
         $payer->save();
 
         $payment = new Payment();
+
         // add the pairing amount back to the payer payment's payment_balance
         $payerPayment = $payment->where('user_id', $pairing->payer_id)->first();
         $payerPayment->payment_balance += $pairing->amount;
@@ -275,7 +276,6 @@ class MemberAccountController extends Controller
 
         Session::flash('success', 'This payment has been cancelled');
         return redirect()->back()->withInput();
-
     }
 
     public function approvePayment($id){
@@ -312,13 +312,13 @@ class MemberAccountController extends Controller
         $receiverPayment = $payment->where('user_id', $pairing->receiver_id)->first();
 
         // Approve payer's payment if the payment balance is 0
-        if($payerPayment->payment_balance == 0){
+        if($payerPayment->payment_balance === 0){
             $payerPayment->approved = 1;
             $payerPayment->completed_payments = 1;
             $payerPayment->save();
         }
 
-        if($receiverPayment->return_balance == 0){
+        if($receiverPayment->return_balance === 0){
             $receiverPayment->completed_returns = 1;
             $receiverPayment->save();
         }

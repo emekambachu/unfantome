@@ -38,7 +38,8 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col">
-                                            <h5 class="text-white mb-1">CFA {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
+                                            <h5 class="text-white mb-1">
+                                                CFA {{!empty($currentPayment->amount) ? number_format($currentPayment->amount) : 0 }}</h5>
                                             <span class="text-white">Current Investment</span>
                                         </div>
                                     </div>
@@ -54,7 +55,8 @@
                                 <div class="card-body pb-0 px-4 pt-4">
                                     <div class="row">
                                         <div class="col text-white">
-                                            <h5 class="text-white mb-1">CFA {{ number_format(Auth::user()->expectedReturn()) }}</h5>
+                                            <h5 class="text-white mb-1">
+                                                CFA {{ number_format(Auth::user()->expectedReturn()) }}</h5>
                                             <span>Expected returns</span>
                                         </div>
                                     </div>
@@ -248,13 +250,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 text-center">
-                        <a href="{{ route('member.market-place') }}">
-                            <button class="btn btn-info">More</button>
-                        </a>
-                    </div>
-
                 @empty
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                         <div class="card">
@@ -268,6 +263,12 @@
                         </div>
                     </div>
                 @endforelse
+
+                <div class="col-12 text-center">
+                    <a href="{{ route('member.market-place') }}">
+                        <button class="btn btn-info">More</button>
+                    </a>
+                </div>
 
             </div>
 
