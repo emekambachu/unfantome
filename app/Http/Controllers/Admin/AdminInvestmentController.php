@@ -41,15 +41,25 @@ class AdminInvestmentController extends Controller
 //            $query->where('receiver_payment_id', $id)->where('receiver_id', $investment->user_id);
 //        });
 
-        $hasActivePairing = $pairing->where('confirm_payment', 1)
-            ->where('approved', 0)
-            ->where('payer_id', $investment->user_id)
-            ->orWhere('receiver_id', $investment->user_id)->first();
+        $hasActivePairing = $pairing->where(function($query) use ($investment){
+            $query->where('payer_id', $investment->user_id)
+                ->where('confirm_payment', 1)
+                ->where('approved', 0);
+        })->orWhere(function($query) use ($id, $investment){
+            $query->where('receiver_id', $investment->user_id)
+                ->where('confirm_payment', 1)
+                ->where('approved', 0);
+        })->first();
 
-        $hasinactivePairing = $pairing->where('approved', 0)
-            ->where('confirm_payment', 0)
-            ->where('payer_id', $investment->user_id)
-            ->orWhere('receiver_id', $investment->user_id)->first();
+        $hasInactivePairing = $pairing->where(function($query) use ($investment){
+            $query->where('payer_id', $investment->user_id)
+                ->where('approved', 0)
+                ->where('confirm_payment', 0);
+        })->orWhere(function($query) use ($id, $investment){
+            $query->where('receiver_id', $investment->user_id)
+                ->where('approved', 0)
+                ->where('confirm_payment', 0);
+        })->first();
 
         // Will work on this later
         if($hasActivePairing){
@@ -57,7 +67,7 @@ class AdminInvestmentController extends Controller
             return redirect()->back();
         }
 
-        if($hasinactivePairing){
+        if($hasInactivePairing){
             Session::flash('warning', 'The owner of this investment has been paired, delete the pairing before deleting the payment');
             return redirect()->back();
         }
