@@ -56,6 +56,7 @@
                                             <td>
                                                 <strong>Invested:</strong> {{ $item->amount }}<br>
                                                 <strong>Balance:</strong> {{ $item->payment_balance }}<br>
+                                                <strong>Returns:</strong> {{ $item->return_balance }}<br>
                                             </td>
                                             <td>
                                                 <strong>Paid:</strong> {{ $item->approved ? 'Yes' : 'No' }}<br>
