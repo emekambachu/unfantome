@@ -32,17 +32,26 @@ class AdminInvestmentController extends Controller
     public function delete($id){
 
         $investment = Payment::with('user')->findOrFail($id);
-
         $pairing = new Pairing();
 
+        // Will implement this query later
+//        $pairing = Pairing::where(function($query) use ($id, $investment){
+//            $query->where('payer_payment_id', $id)->where('payer_id', $investment->user_id);
+//        })->orWhere(function($query) use ($id, $investment){
+//            $query->where('receiver_payment_id', $id)->where('receiver_id', $investment->user_id);
+//        });
+
         $hasActivePairing = $pairing->where('confirm_payment', 1)
+            ->where('approved', 0)
             ->where('payer_id', $investment->user_id)
             ->orWhere('receiver_id', $investment->user_id)->first();
 
-        $hasinactivePairing = $pairing->where('confirm_payment', 0)
+        $hasinactivePairing = $pairing->where('approved', 0)
+            ->where('confirm_payment', 0)
             ->where('payer_id', $investment->user_id)
             ->orWhere('receiver_id', $investment->user_id)->first();
 
+        // Will work on this later
         if($hasActivePairing){
             Session::flash('warning', 'Unable to delete, the pairing of this investment is active');
             return redirect()->back();

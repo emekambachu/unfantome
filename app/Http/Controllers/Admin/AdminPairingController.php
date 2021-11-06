@@ -52,6 +52,10 @@ class AdminPairingController extends Controller
         $receiver->paired = 1; // true
         $receiver->save();
 
+        // Include investment id of pending payment/return to pairing
+        $input['payer_payment_id'] = $payer->pendingPayment->id;
+        $input['receiver_payment_id'] = $receiver->pendingReturn->id;
+
         // Get payer and receiver payment information
         $payerPayment = $payment->where('user_id', $input['payer_id'])
             ->where('payment_balance','>', 0)->first();

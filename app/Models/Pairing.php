@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pairing extends Model
 {
     protected $fillable = [
+        'payer_payment_id',
+        'receiver_payment_id',
         'payer_id',
         'receiver_id',
         'amount',
@@ -24,5 +26,13 @@ class Pairing extends Model
 
     public function receiver(){
         return $this->belongsTo(User::class, 'receiver_id', 'id');
+    }
+
+    public function payerPayment(){
+        return $this->belongsTo(Payment::class, 'payer_payment_id', 'id');
+    }
+
+    public function receiverPayment(){
+        return $this->belongsTo(Payment::class, 'receiver_payment_id', 'id');
     }
 }

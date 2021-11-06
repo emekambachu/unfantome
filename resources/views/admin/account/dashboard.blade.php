@@ -217,10 +217,11 @@
                                     @foreach($payments as $item)
                                         <tr>
                                             <td>
-                                                <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheckBox2" required="">
-                                                    <label class="custom-control-label" for="customCheckBox2"></label>
-                                                </div>
+                                            <div class="custom-control custom-checkbox checkbox-success check-lg mr-3">
+                                                <input type="checkbox" class="custom-control-input"
+                                                       id="customCheckBox2" required="">
+                                                <label class="custom-control-label" for="customCheckBox2"></label>
+                                            </div>
                                             </td>
                                             <td>{{ $item->user->name ?? '' }}</td>
                                             <td>
@@ -229,7 +230,7 @@
                                             </td>
                                             <td>
                                                 <strong>Invested:</strong> {{ $item->amount }}<br>
-                                                <strong>Balance:</strong> {{ $item->balance }}<br>
+                                                <strong>Balance:</strong> {{ $item->payment_balance }}<br>
                                             </td>
                                             <td>
                                                 <strong>Paid:</strong> {{ $item->approved ? 'Yes' : 'No' }}<br>

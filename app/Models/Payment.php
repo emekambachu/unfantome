@@ -25,4 +25,12 @@ class Payment extends Model
     public function paymentPlan(){
         return $this->belongsTo(PaymentPlan::class, 'payment_plan_id', 'id');
     }
+
+    public function payerPairings(){
+        return $this->hasMany(Pairing::class, 'payer_payment_id', 'id');
+    }
+
+    public function receiverPairings(){
+        return $this->hasMany(Pairing::class, 'receiver_payment_id', 'id');
+    }
 }
